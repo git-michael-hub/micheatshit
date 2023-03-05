@@ -1,0 +1,83 @@
+<ng-container>
+    <section>
+        <h1>Installation</h1>
+        <mat-accordion>
+          <ng-container *ngTemplateOutlet="appTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="cmdTmplt"></ng-container>
+        </mat-accordion>
+    </section>
+</ng-container>
+
+<ng-template #appTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Applications
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+                <p>There are a good many applications that will get you up and running with Sass in a few minutes for Mac, Windows, and Linux. You can download most of the applications for free but a few of them are paid apps (and totally worth it).</p>
+                <ul>
+                    <li>
+                        <a href="https://codekitapp.com/" target="_blank">CodeKit</a> (Paid) Mac
+                    </li>
+                    <li>
+                        <a href="#" target="_blank">Ghostlab</a> (Paid) Mac Windows
+                    </li>
+                    <li>
+                        <a href="https://hammerformac.com/" target="_blank">Hammer</a> (Paid) Mac
+                    </li>
+                    <li>
+                        <a href="#" target="_blank">LiveReload</a> (Paid, Open Source) Mac Windows
+                    </li>
+                    <li>
+                        <a href="https://prepros.io/" target="_blank">Prepros</a> (Paid) Mac Windows Linux
+                    </li>
+                    <li>
+                        <a href="https://scout-app.io/" target="_blank">Scout-App</a> (Free, Open Source) Windows Linux Mac
+                    </li>
+                </ul>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #cmdTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Command Line
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+                <p>When you install Sass on the command line, you'll be able to run the sass executable to compile .sass and .scss files to .css files.</p>
+                <p>For example:</p>
+                <code-example code="
+                sass source/stylesheets/index.scss build/stylesheets/index.css
+                "></code-example>
+                <br>
+                <h3>Install Anywhere (npm)</h3>
+                <code-example code="
+                npm install -g sass
+                "></code-example>
+
+                <br>
+                <h3>Install on Windows (Chocolatey)</h3>
+                <code-example code="
+                choco install sass
+                "></code-example>
+
+                <br>
+                <h3>Install on Mac OS X or Linux (Homebrew)</h3>
+                <code-example code="
+                brew install sass/sass/sass
+                "></code-example>
+            </ng-container>
+            
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>

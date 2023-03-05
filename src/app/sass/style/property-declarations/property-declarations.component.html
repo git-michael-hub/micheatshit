@@ -1,0 +1,342 @@
+<ng-container>
+    <section>
+        <h1>Property Declarations</h1>
+        <br>
+        <p>In Sass as in CSS, property declarations define how elements that match a selector are styled. But Sass adds extra features to make them easier to write and to automate. First and foremost, a declaration's value can be any SassScript expression, which will be evaluated and included in the result.</p>
+
+        <h3>SCSS</h3>
+        <code-example code="
+        .circle {
+            $size: 100px;
+            width: $size;
+            height: $size;
+            border-radius: $size * 0.5;
+          }
+        "></code-example>
+
+        <br>
+        <h3>Sass</h3>
+        <code-example code="
+        .circle
+            $size: 100px
+            width: $size
+            height: $size
+            border-radius: $size * 0.5
+        "></code-example>
+
+        <br>
+        <h3>CSS</h3>
+        <code-example code="
+        .circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50px;
+          }
+        "></code-example>
+
+
+        <mat-accordion>
+            <ng-container *ngTemplateOutlet="interpolationTmplt"></ng-container>
+            <ng-container *ngTemplateOutlet="nestingTmplt"></ng-container>
+            <ng-container *ngTemplateOutlet="hiddenTmplt"></ng-container>
+            <ng-container *ngTemplateOutlet="customTmplt"></ng-container>
+        </mat-accordion>
+    
+    </section>
+</ng-container>
+
+<ng-template #interpolationTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Interpolation
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+                <p>A property’s name can include interpolation, which makes it possible to dynamically generate properties as needed. You can even interpolate the entire property name!</p>
+
+                <h3>SCSS</h3>
+                <code-example code='
+                 @mixin prefix($property, $value, $prefixes) {
+                    @each $prefix in $prefixes {
+                      -#{$prefix}-#{$property}: $value;
+                    }
+                    #{$property}: $value;
+                  }
+                  
+                  .gray {
+                    @include prefix(filter, grayscale(50%), moz webkit);
+                  }
+                '></code-example>
+
+                <br>
+                <h3>Sass</h3>
+                <code-example code='
+                @mixin prefix($property, $value, $prefixes)
+                    @each $prefix in $prefixes
+                        -#{$prefix}-#{$property}: $value
+              
+                    #{$property}: $value
+              
+              
+                .gray
+                    @include prefix(filter, grayscale(50%), moz webkit)
+                '></code-example>
+
+                <br>
+                <h3>CSS</h3>
+                <code-example code='
+                .gray {
+                    -moz-filter: grayscale(50%);
+                    -webkit-filter: grayscale(50%);
+                    filter: grayscale(50%);
+                }
+                '></code-example>
+            </ng-container>
+        </ng-container>
+    </mat-expansion-panel>
+</ng-template>
+
+<ng-template #nestingTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Nesting
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+                <p>Many CSS properties start with the same prefix that acts as a kind of namespace. For example, font-family, font-size, and font-weight all start with font-. Sass makes this easier and less redundant by allowing property declarations to be nested. The outer property names are added to the inner, separated by a hyphen.</p>
+
+                <h3>SCSS</h3>
+                <code-example code='
+                .enlarge {
+                    font-size: 14px;
+                    transition: {
+                      property: font-size;
+                      duration: 4s;
+                      delay: 2s;
+                    }
+                  
+                    &:hover { font-size: 36px; }
+                  }
+                '></code-example>
+
+                <br>
+                <h3>Sass</h3>
+                <code-example code='
+                .enlarge
+                    font-size: 14px
+                    transition:
+                        property: font-size
+                        duration: 4s
+                        delay: 2s
+              
+                    &:hover
+                        font-size: 36px
+              
+                '></code-example>
+
+                <br>
+                <h3>CSS</h3>
+                <code-example code='
+                 .enlarge {
+                    font-size: 14px;
+                    transition-property: font-size;
+                    transition-duration: 4s;
+                    transition-delay: 2s;
+                  }
+                  .enlarge:hover {
+                    font-size: 36px;
+                  }
+                '></code-example>
+
+                <br>
+                <p>Some of these CSS properties have shorthand versions that use the namespace as the property name. For these, you can write both the shorthand value and the more explicit nested versions.</p>
+                <h3>SCSS</h3>
+                <code-example code='
+                 .info-page {
+                    margin: auto {
+                      bottom: 10px;
+                      top: 2px;
+                    }
+                  }
+                '></code-example>
+
+                <br>
+                <h3>Sass</h3>
+                <code-example code='
+                .info-page
+                    margin: auto
+                        bottom: 10px
+                        top: 2px
+              
+                '></code-example>
+
+                <br>
+                <h3>CSS</h3>
+                <code-example code='
+                .info-page {
+                    margin: auto;
+                    margin-bottom: 10px;
+                    margin-top: 2px;
+                }
+                '></code-example>
+            </ng-container>
+        </ng-container>
+    </mat-expansion-panel>
+</ng-template>
+
+<ng-template #hiddenTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Hidden Declarations
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+                <p>Sometimes you only want a property declaration to show up some of the time. If a declaration’s value is <strong>null</strong> or an empty <strong>unquoted string</strong>, Sass won’t compile that declaration to CSS at all.</p>
+
+                <h3>SCSS</h3>
+                <code-example code='
+                $rounded-corners: false;
+                
+                .button {
+                  border: 1px solid black;
+                  border-radius: if($rounded-corners, 5px, null);
+                }
+                '></code-example>
+
+                <br>
+                <h3>Sass</h3>
+                <code-example code='
+                $rounded-corners: false
+
+                .button
+                  border: 1px solid black
+                  border-radius: if($rounded-corners, 5px, null)
+                '></code-example>
+
+                <br>
+                <h3>CSS</h3>
+                <code-example code='
+                .button {
+                    border: 1px solid black;
+                }
+                  
+                '></code-example>
+            </ng-container>
+        </ng-container>
+    </mat-expansion-panel>
+</ng-template>
+
+<ng-template #customTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Custom Properties
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+                <p><strong>CSS custom properties</strong>, also known as CSS variables, have an unusual declaration syntax: they allow almost any text at all in their declaration values. What’s more, those values are accessible to JavaScript, so any value might potentially be relevant to the user. This includes values that would normally be parsed as SassScript.</p>
+                <p>Because of this, Sass parses custom property declarations differently than other property declarations. All tokens, including those that look like SassScript, are passed through to CSS as-is. The only exception is <strong>interpolation</strong>, which is the only way to inject dynamic values into a custom property.</p>
+
+                <h3>SCSS</h3>
+                <code-example code='
+                $primary: #81899b;
+                $accent: #302e24;
+                $warn: #dfa612;
+                
+                :root {
+                  --primary: #{$primary};
+                  --accent: #{$accent};
+                  --warn: #{$warn};
+                
+                  // Even though this looks like a Sass variable, it is valid CSS so it is not
+                  // evaluated.
+                  --consumed-by-js: $primary;
+                }
+                '></code-example>
+                <br>
+
+                <h3>Sass</h3>
+                <code-example code='
+                $primary: #81899b
+                $accent: #302e24
+                $warn: #dfa612
+                
+                :root
+                  --primary: #{$primary}
+                  --accent: #{$accent}
+                  --warn: #{$warn}
+                
+                  // Even though this looks like a Sass variable, it is valid CSS so it is not
+                  // evaluated.
+                  --consumed-by-js: $primary
+                '></code-example>
+
+                <br>
+                <h3>CSS</h3>
+                <code-example code='
+                :root {
+                    --primary: #81899b;
+                    --accent: #302e24;
+                    --warn: #dfa612;
+                    --consumed-by-js: $primary;
+                }
+                  
+                '></code-example>
+
+                <br>
+                <p class="note">
+                    Unfortunately, interpolation removes quotes from strings, which makes it difficult to use quoted strings as values for custom properties when they come from Sass variables. As a workaround, you can use the <code>meta.inspect()</code> function to preserve the quotes.
+                </p>
+                <br>
+                <h3>SCSS</h3>
+                <code-example code='
+                @use "sass:meta";
+
+                $font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+                $font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas;
+                
+                :root {
+                    --font-family-sans-serif: #{meta.inspect($font-family-sans-serif)};
+                    --font-family-monospace: #{meta.inspect($font-family-monospace)};
+                }
+                '></code-example>
+
+                <br>
+                <h3>Sass</h3>
+                <code-example code='
+                @use "sass:meta"
+
+                $font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto
+                $font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas
+                
+                :root
+                  --font-family-sans-serif: #{meta.inspect($font-family-sans-serif)}
+                  --font-family-monospace: #{meta.inspect($font-family-monospace)}
+                '></code-example>
+
+                <br>
+                <h3>CSS</h3>
+                <code-example code='
+                :root {
+                    --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+                    --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas;
+                  }
+                  
+                '></code-example>
+
+
+            </ng-container>
+        </ng-container>
+    </mat-expansion-panel>
+</ng-template>

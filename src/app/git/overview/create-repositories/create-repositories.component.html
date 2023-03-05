@@ -1,0 +1,22 @@
+<ng-container>
+    <section>
+        <h1>Create repositories</h1>
+        <br>        
+        <p>A new repository can either be created locally, or an existing repository can be cloned. When a repository was initialized locally, you have to push it to GitHub afterwards.</p>
+        <code-example code="
+        $ git init 
+        "></code-example>
+        <br>
+        <p>The git init command turns an existing directory into a new Git repository inside the folder you are running this command. After using the <code>git init</code> command, link the local repository to an empty GitHub repository using the following command:</p>
+        <code-example code="
+        $ git remote add origin [url]
+        "></code-example>
+        <br>
+        <p>Specifies the remote repository for your local repository. The url points to a repository on GitHub.</p>
+        <code-example code="
+        $ git clone [url]
+        "></code-example>
+        <br>
+        <p>Clone (download) a repository that already exists on GitHub, including all of the files, branches, and commits</p>
+    </section>
+</ng-container>

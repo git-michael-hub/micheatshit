@@ -1,0 +1,46 @@
+<ng-container>
+    <section>
+        <h1>Subscription</h1>
+        <mat-accordion>
+            <p>A <strong>Subscription</strong> is an object that represents a disposable resource, usually the execution of an Observable. A <strong>Subscription</strong> has one important method, <code>unsubscribe</code>, that takes no argument and just disposes the resource held by the subscription</p>
+            <code-example code="
+            import { interval } from 'rxjs';
+
+            const observable = interval(1000);
+            const subscription = observable.subscribe(x => console.log(x));
+            // Later:
+            // This cancels the ongoing Observable execution which
+            // was started by calling subscribe with an Observer.
+            subscription.unsubscribe();
+            "></code-example>
+
+            <p class="note">A Subscription essentially just has an unsubscribe() function to release resources or cancel Observable executions.</p>
+            <p><strong>Subscriptions</strong> can also be put together, so that a call to an <code>unsubscribe()</code> of one Subscription may unsubscribe multiple Subscriptions</p>
+            <code-example code="
+            import { interval } from 'rxjs';
+ 
+            const observable1 = interval(400);
+            const observable2 = interval(300);
+             
+            const subscription = observable1.subscribe(x => console.log('first: ' + x));
+            const childSubscription = observable2.subscribe(x => console.log('second: ' + x));
+             
+            subscription.add(childSubscription);
+             
+            setTimeout(() => {
+              // Unsubscribes BOTH subscription and childSubscription
+              subscription.unsubscribe();
+            }, 1000);
+            "></code-example>
+            <p>When executed, we see in the console:</p>
+            <code-example code="
+            second: 0
+            first: 0
+            second: 1
+            first: 1
+            second: 2
+            "></code-example>
+        </mat-accordion>
+    </section>
+</ng-container>
+

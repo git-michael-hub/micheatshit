@@ -1,0 +1,194 @@
+<ng-container>
+    <section>
+        <h1>Structure of a Stylesheet</h1>
+        <br>
+        <p>Just like CSS, most Sass stylesheets are mainly made up of style rules that contain property declarations. But Sass stylesheets have many more features that can exist alongside these.</p>
+
+        <mat-accordion>
+            <ng-container *ngTemplateOutlet="statementTmplt"></ng-container>
+            <ng-container *ngTemplateOutlet="expressionsTmplt"></ng-container>
+        </mat-accordion>
+    </section>
+</ng-container>
+
+<ng-template #statementTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Statements
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+                <p>A Sass stylesheet is made up of a series of <strong>statements</strong>, which are evaluated in order to build the resulting CSS. Some statements may have blocks, defined using [ and ], which contain other statements. For example, a style rule is a statement with a block. That block contains other statements, such as property declarations.</p>
+                <p>In SCSS, statements are separated by semicolons (which are optional if the statement uses a block). In the indented syntax, they’re just separated by newlines.</p>
+
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        Universal Statements
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+            
+                    <ng-container #content1>
+                        <ng-container #description1>
+                            <p>These types of statements can be used anywhere in a Sass stylesheet:</p>
+                            <ul>
+                                <li>Variable declarations, like $var: value.</li>
+                                <li>Flow control at-rules, like @if and @each.</li>
+                                <li>The @error, @warn, and @debug rules.</li>
+                            </ul>
+                        </ng-container>
+                    </ng-container>
+                </mat-expansion-panel>
+
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        CSS Statements
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+            
+                    <ng-container #content2>
+                        <ng-container #description2>
+                            <p>These statements produce CSS. They can be used anywhere except within a @function:</p>
+                            <ul>
+                                <li>Style rules, like h1 [ /* ... */ ].</li>
+                                <li>CSS at-rules, like @media and @font-face.</li>
+                                <li>Mixin uses using @include.</li>
+                                <li>The @at-root rule.</li>
+                            </ul>
+                        </ng-container>
+                    </ng-container>
+                </mat-expansion-panel>
+
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        Top-Level Statements
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+            
+                    <ng-container #content3>
+                        <ng-container #description3>
+                            <p>These statements can only be used at the top level of a stylesheet, or nested within a CSS statement at the top level:</p>
+                            <ul>
+                                <li>Module loads, using @use.</li>
+                                <li>Imports, using @import.</li>
+                                <li>Mixin definitions using @mixin.</li>
+                                <li>Function definitions using @function.</li>
+                            </ul>
+                        </ng-container>
+                    </ng-container>
+                </mat-expansion-panel>
+
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        Other Statements
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+            
+                    <ng-container #content4>
+                        <ng-container #description4>
+                            <p>Property declarations like width: 100px may only be used within style rules and some CSS at-rules.</p>
+                            <p>The @extend rule may only be used within style rules.</p>
+                        </ng-container>
+                    </ng-container>
+                </mat-expansion-panel>
+
+
+
+            </ng-container>
+        </ng-container>
+    </mat-expansion-panel>
+</ng-template>
+
+<ng-template #expressionsTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Expressions
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+               <p>An <strong>expression</strong> is anything that goes on the right-hand side of a property or variable declaration. Each expression produces a <strong>value</strong>. Any valid CSS property value is also a Sass expression, but Sass expressions are much more powerful than plain CSS values. They’re passed as arguments to <strong>mixins</strong> and <strong>functions</strong>, used for control flow with the <strong>@if rule</strong>, and manipulated using <strong>arithmetic</strong>. We call Sass’s expression syntax SassScript.</p>
+
+
+               <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Literals
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+        
+                <ng-container #content1>
+                    <ng-container #description1>
+                        <p>The simplest expressions just represent static values:</p>
+                        <ul>
+                            <li><strong>Numbers</strong>, which may or may not have units, like 12 or 100px.</li>
+                            <li><strong>Strings</strong>, which may or may not have quotes, like "Helvetica Neue" or bold.</li>
+                            <li><strong>Colors</strong>, which can be referred to by their hex representation or by name, like #c6538c or blue.</li>
+                            <li>The <strong>boolean</strong> literals true or false.</li>
+                            <li>The singleton <strong>null</strong>.</li>
+                            <li><strong>Lists of values</strong>, which may be separated by spaces or commas and which may be enclosed in square brackets or no brackets at all, like 1.5em 1em 0 2em, Helvetica, Arial, sans-serif, or [col1-start].</li>
+                            <li><strong>Maps</strong> that associate values with keys, like ("background": red, "foreground": pink).</li>
+                        </ul>
+                    </ng-container>
+                </ng-container>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Operations
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+        
+                <ng-container #content2>
+                    <ng-container #description2>
+                        <p>Sass defines syntax for a number of operations:</p>
+
+                        <ul>
+                            <li>== and != are used to check if two values are the same.</li>
+                            <li>+, -, *, /, and % have their usual mathematical meaning for numbers, with special behaviors for units that matches the use of units in scientific math.</li>
+                            <li>[, [=, >, and >= check whether two numbers are greater or less than one another.</li>
+                            <li>and, or, and not have the usual boolean behavior. Sass considers every value “true” except for false and null.</li>
+                            <li>+, -, and / can be used to concatenate strings.</li>
+                            <li>( and ) can be used to explicitly control the precedence order of operations.</li>
+                        </ul>
+                    </ng-container>
+                </ng-container>
+            </mat-expansion-panel>
+
+
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Other Expressions
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+        
+                <ng-container #content3>
+                    <ng-container #description3>
+                        <ul>
+                            <li>Variables, like $var.</li>
+                            <li>Function calls, like nth($list, 1) or var(--main-bg-color), which may call Sass core library functions or user-defined functions, or which may be compiled directly to CSS.</li>
+                            <li>Special functions, like calc(1px + 100%) or url(http://myapp.com/assets/logo.png), that have their own unique parsing rules.</li>
+                            <li>The parent selector, &.</li>
+                            <li>The value !important, which is parsed as an unquoted string.</li>
+
+                        </ul>
+                    </ng-container>
+                </ng-container>
+            </mat-expansion-panel>
+
+
+            </ng-container>
+
+        </ng-container>
+    </mat-expansion-panel>
+</ng-template>

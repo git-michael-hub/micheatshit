@@ -1,0 +1,36 @@
+<ng-container>
+    <section>
+        <h1>Make changes</h1>
+        <br>        
+        <p>Browse and inspect the evolution of project files</p>
+        <code-example code="
+        $ git log
+        "></code-example>
+        <br>
+        <p>Lists version history for the current branch</p>
+        <code-example code="
+        $ git log --follow [file]
+        "></code-example>
+        <br>
+        <p>Lists version history for a file, beyond renames (works only for a single file)</p>
+        <code-example code="
+        $ git diff [first-branch]...[second-branch]
+        "></code-example>
+        <br>
+        <p>Shows content differences between two branches</p>
+        <code-example code="
+        $ git show [commit] 
+        "></code-example>
+        <br>
+        <p>Outputs metadata and content changes of the specified commit</p>
+        <code-example code="
+        $ git add [file]
+        "></code-example>
+        <br>
+        <p>Snapshots the file in preparation for versioning</p>
+        <code-example code='
+        $ git commit -m "[descriptive message]"
+        '></code-example>
+        <p>Records file snapshots permanently in version history</p>
+    </section>
+</ng-container>

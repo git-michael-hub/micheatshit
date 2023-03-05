@@ -1,0 +1,99 @@
+<ng-container>
+    <section>
+        <h1>Major Entities</h1>
+        <mat-accordion>
+          <ng-container *ngTemplateOutlet="consumerTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="producerTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="subscriptionTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="observableTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="observerTmplt"></ng-container>
+        </mat-accordion>
+    </section>
+</ng-container>
+
+<ng-template #consumerTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Consumer
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+                <p>The code that is subscribing to the observable. This is whoever is being notified of <strong>nexted</strong> values, and <strong>errors</strong> or <strong>completions</strong>.</p>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #producerTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Producer
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+                <p>Any system or thing that is the source of values that are being pushed out of the observable subscription to the consume</p>
+                <p>The <strong>producer</strong> is most often created during the <strong>subscribe</strong> action, and therefor "owned" by a <strong>subscription</strong> in a 1:1 way, but that is not always the case.</p>
+                <p>A <strong>producer</strong> may be shared between many subscriptions, if it is created outside of the <strong>subscribe</strong> action, in which case it is one-to-many, resulting in a <strong>multicast</strong>.</p>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #subscriptionTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Subscription
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+                <p>A <strong>contract</strong> where a <strong>consumer</strong> is <strong>observing</strong> values pushed by a <strong>producer</strong>.</p>
+                <p>The subscription (not to be confused with the Subscription class or type), is an ongoing process that amounts to the function of the observable from the Consumer's perspective.</p>
+                <p>Subscription starts the moment a <strong>subscribe</strong> action is initiated, even before the <strong>subscribe</strong> action is finished.</p>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #observableTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Observable
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+                <p>The primary type in RxJS.</p>
+                <p>An <strong>observable</strong> represents a template for connecting an <strong>Observer</strong>, as a <strong>consumer</strong>, to a <strong>producer</strong>, via a <strong>subscribe</strong> action, resulting in a <strong>subscription</strong>.</p>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #observerTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Observer
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+                <p>The manifestation of a <strong>consumer</strong>. </p>
+                <p>A type that may have some (or all) handlers for each type of <strong>notification</strong>: <strong>next</strong>, <strong>error</strong>, and <strong>complete</strong>.</p>
+                <p>Having all three types of handlers generally gets this to be called an <strong>"observer"</strong>, where if it is missing any of the notification handlers, it may be called a <strong>"partial observer"</strong>.</p>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>

@@ -1,0 +1,61 @@
+<ng-container>
+    <section>
+        <h1>Operators</h1>
+        <br>
+        <p>Doing math in your CSS is very helpful. Sass has a handful of standard math operators like +, -, *, math.div(), and %. </p>
+        <br>
+        <h3>SCSS</h3>
+        <code-example code='
+        @use "sass:math";
+
+        .container {
+            display: flex;
+        }
+
+        article[role="main"] {
+            width: math.div(600px, 960px) * 100%;
+        }
+
+        aside[role="complementary"] {
+            width: math.div(300px, 960px) * 100%;
+            margin-left: auto;
+        }
+        '></code-example>
+        <br>
+        <h3>Sass</h3>
+        <code-example code='
+        @use "sass:math"
+
+        .container
+          display: flex
+        
+        article[role="main"]
+          width: math.div(600px, 960px) * 100%
+        
+        aside[role="complementary"]
+          width: math.div(300px, 960px) * 100%
+          margin-left: auto
+        
+        '></code-example>
+        <br>
+        <h3>CSS</h3>
+        <code-example code='
+        CSS OUTPUT
+        .container {
+          display: flex;
+        }
+        
+        article[role="main"] {
+          width: 62.5%;
+        }
+        
+        aside[role="complementary"] {
+          width: 31.25%;
+          margin-left: auto;
+        }
+        
+        '></code-example>
+        <br>
+        <p>We've created a very simple fluid grid, based on 960px. Operations in Sass let us do something like take pixel values and convert them to percentages without much hassle.</p>
+    </section>
+</ng-container>

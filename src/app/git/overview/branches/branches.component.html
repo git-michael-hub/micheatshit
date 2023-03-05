@@ -1,0 +1,27 @@
+<ng-container>
+    <section>
+        <h1>Branches</h1>
+        <br>        
+        <p>Branches are an important part of working with Git. Any commits you make will be made on the branch you’re currently “checked out” to. Use <code>git status</code> to see which branch that is.</p>
+        <code-example code="
+        $ git branch [branch-name]
+        "></code-example>
+        <br>
+        <p>Creates a new branch</p>
+        <code-example code="
+        $ git switch -c [branch-name] 
+        "></code-example>
+        <br>
+        <p>Switches to the specified branch and updates the working directory</p>
+        <code-example code="
+        $ git merge [branch] 
+        "></code-example>
+        <br>
+        <p>Combines the specified branch’s history into the current branch. This is usually done in pull requests, but is an important Git operation.</p>
+        <code-example code="
+        $ git branch -d [branch-name]
+        "></code-example>
+        <br>
+        <p>Deletes the specified branch</p>
+    </section>
+</ng-container>

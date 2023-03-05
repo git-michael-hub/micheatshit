@@ -1,0 +1,665 @@
+<ng-container>
+    <section>
+        <h1>Cheat Sheet</h1>
+        <mat-accordion>
+            <ng-container>
+
+                <ng-container #content1>
+                   <mat-accordion>
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    Bootstrapping
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+
+                            <ng-container #content1Content>
+                                <ng-container #description_1>
+                                    <p>{{"import { platformBrowserDynamic } from '@angular/platform-browser-dynamic'; "}}</p>
+
+                                    <div>
+                                        <p>platformBrowserDynamic().<span>bootstrapModule</span>(AppModule);</p>
+                                        <p>Bootstraps the application, using the root component from the specified NgModule.</p>
+                                    </div>
+                                </ng-container>
+                            </ng-container>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </ng-container>
+
+
+                <ng-container #content2>
+                    <mat-accordion>
+                         <mat-expansion-panel>
+                             <mat-expansion-panel-header>
+                                 <mat-panel-title>
+                                    NgModules
+                                 </mat-panel-title>
+                             </mat-expansion-panel-header>
+ 
+                             <ng-container #content2Content>
+                                 <ng-container #description_2>
+                                    <p>{{" import { NgModule } from '@angular/core'; "}}</p>
+                                    
+                                    <div>
+                                        <p>
+                                            @<span>NgModule</span>{{"
+                                            ({
+                                                declarations: ..., imports: ..., exports: ...,
+                                                providers: ..., bootstrap: ...
+                                              })
+                                              class MyModule {}
+                                        "}}</p>
+                                        <p>Defines a module that contains components, directives, pipes, and providers.</p>
+                                    </div>
+
+                                    <div>
+                                        <p><span>declarations</span>: [MyRedComponent, MyBlueComponent, MyDatePipe]</p>
+                                        <p>List of components, directives, and pipes that belong to this module.</p>
+                                    </div>
+
+                                    <div>
+                                        <p><span>imports</span>: [BrowserModule, SomeOtherModule]</p>
+                                        <p>List of modules to import into this module. Everything from the imported modules is available to declarations of this module.</p>
+                                    </div>
+
+                                    <div>
+                                        <p><span>exports</span>: [MyRedComponent, MyDatePipe]</p>
+                                        <p>List of components, directives, and pipes visible to modules that import this module.</p>
+                                    </div>
+
+                                    <div>
+                                        <p><span>providers</span>
+                                        {{"
+                                            : [MyService, { provide: ... }] 
+                                        "}}</p>
+                                        <p>List of dependency injection providers visible both to the contents of this module and to importers of this module.</p>
+                                    </div>
+
+                                    <div>
+                                        <p>
+                                            <span>entryComponents</span> : [SomeComponent, OtherComponent]
+                                        </p>
+                                        <p>List of components not referenced in any reachable template, for example dynamically created from code.</p>
+                                    </div>
+
+                                    <div>
+                                        <p>
+                                            <span>bootstrap</span>
+                                            : [MyAppComponent]
+                                        </p>
+                                        <p>List of components to bootstrap when this module is bootstrapped.</p>
+                                    </div>
+                                 </ng-container>
+                             </ng-container>
+                         </mat-expansion-panel>
+                     </mat-accordion>
+                 </ng-container>
+
+
+                <ng-container #content3>
+                    <mat-accordion>
+                         <mat-expansion-panel>
+                             <mat-expansion-panel-header>
+                                 <mat-panel-title>
+                                    Template syntax
+                                 </mat-panel-title>
+                             </mat-expansion-panel-header>
+ 
+                             <ng-container #content3Content>
+                                 <ng-container #description_3>
+                                 <div>
+                                     <p>
+                                         < input <span>[value]</span>="firstName"> 
+                                     </p>
+                                     <p>Binds property <span>value</span> to the result of expression <span>firstName</span>.</p>
+                                 </div>
+
+                                 <div>
+                                     <p>< div <span>[attr.role]</span>="myAriaRole"></p>
+                                     <p>Binds attribute <span>role</span> to the result of expression <span>myAriaRole</span>.</p>
+                                 </div>
+
+                                 <div>
+                                     <p>< div <span>[class.extra-sparkle]</span>="isDelightful"></p>
+                                     <p>Binds the presence of the CSS class <span>extra-sparkle</span> on the element to the truthiness of the expression <span>isDelightful</span>.</p>
+                                 </div>
+
+                                 <div>
+                                     <p>< div <span>[style.width.px]</span>="mySize"></p>
+                                     <p>Binds style property <span>width</span> to the result of expression <span>mySize</span> in pixels. Units are optional.</p>
+                                 </div>
+
+                                 <div>
+                                     <p>< button <span>(click)</span>="readRainbow($event)"></p>
+                                     <p>Calls method <span>readRainbow</span> when a click event is triggered on this button element (or its children) and passes in the event object.</p>
+                                 </div>
+
+                                 <div>
+                                     <p>{{' < div title="Hello {{ponyName}}"> '}}</p>
+                                     <p>Binds a property to an interpolated string, for example, "Hello Seabiscuit". Equivalent to: <span>< div [title]="'Hello ' + ponyName"></span></p>
+                                 </div>
+
+                                 <div>
+                                     <p>{{" < p >Hello {{ponyName}}< /p > "}}</p>
+                                     <p>Binds text content to an interpolated string, for example, "Hello Seabiscuit".</p>
+                                 </div>
+
+                                 <div>
+                                     <p>< my-cmp <span>[(title)]</span>="name"></p>
+                                     <p>Sets up two-way data binding. Equivalent to: <span>< my-cmp [title]="name" (titleChange)="name=$event"></span> </p>
+                                 </div>
+
+                                 <div>
+                                     <p>< video <span>#movieplayer</span> ...>< /video></p>
+                                     <p>< button <span>(click)</span>="movieplayer.play()">Play< / button></p>
+                                     <p>Creates a local variable <span>movieplayer</span> that provides access to the <span>video</span> element instance in data-binding and event-binding expressions in the current template.</p>
+                                 </div>
+
+                                 <div>
+                                     <p>< p <span>*myUnless</span>="myExpression">...< /p></p>
+                                     <p>The <span>*</span> symbol turns the current element into an embedded template. Equivalent to: <span>< ng-template [myUnless]="myExpression">< p>...< /p>< /ng-template> </span> </p>
+                                 </div>
+
+                                 <div>
+                                     <p>
+                                         {{"
+                                         < p>Card No.: {{cardNumber | myCardNumberFormatter}}< /p>
+
+                                         "}}
+                                     </p>
+                                     <p>Transforms the current value of expression <span>cardNumber</span> using the pipe called <span>myCardNumberFormatter</span>.</p>
+                                 </div>
+
+                                 <div>
+                                     <p>
+                                         {{"
+                                         < p>Employer: {{employer?.companyName}}< /p>
+                                         "}}
+                                     </p>
+                                     <p>The safe navigation operator (<span>?</span>) means that the <span>employer</span> field is optional and if <span>undefined</span>, the rest of the expression should be ignored.</p>
+                                 </div>
+
+                                 <div>
+                                     <p>< svg:rect x="0" y="0" width="100" height="100"/></p>
+                                     <p>An SVG snippet template needs an <span>svg</span>: prefix on its root element to disambiguate the SVG element from an HTML component.</p>
+                                 </div>
+
+                                 <div>
+                                     <p>
+                                        < svg>
+                                            < rect x="0" y="0" width="100" height="100"/>
+                                          < /svg>
+                                     </p>
+                                     <p>An < <span>svg</span> > root element is detected as an SVG element automatically, without the prefix.</p>
+                                 </div>
+                                 </ng-container>
+                             </ng-container>
+                         </mat-expansion-panel>
+                     </mat-accordion>
+                 </ng-container>
+
+
+                <ng-container #content4>
+                    <mat-accordion>
+                         <mat-expansion-panel>
+                             <mat-expansion-panel-header>
+                                 <mat-panel-title>
+                                    Built-in directives
+                                 </mat-panel-title>
+                             </mat-expansion-panel-header>
+ 
+                             <ng-container #content4Content>
+                                 <ng-container #description_4>
+                                    <p>
+                                        {{"
+                                        import { CommonModule } from '@angular/common';
+                                        "}}
+                                    </p>
+                                 </ng-container>
+
+                                 <div>
+                                     <p>< section <span>*ngIf</span>="showSection"></p>
+                                     <p>Removes or recreates a portion of the DOM tree based on the <span>showSection</span> expression.</p>
+                                 </div>
+
+                                 <div>
+                                     <p>< li <span>*ngFor</span>="let item of list"></p>
+                                     <p>Turns the li element and its contents into a template, and uses that to instantiate a view for each item in list.</p>
+                                 </div>
+
+                                 <div>
+                                     <p>< div [<span>ngSwitch</span>]="conditionExpression"></p>
+                                     <p>&nbsp;&nbsp;&nbsp;&nbsp;< ng-template [<span>ngSwitchCase</span>]="case1Exp">...< /ng-template></p>
+                                     <p>&nbsp;&nbsp;&nbsp;&nbsp;< ng-template <span>ngSwitchCase</span>="case2LiteralString">...< /ng-template></p>
+                                     <p>&nbsp;&nbsp;&nbsp;&nbsp;< ng-template <span>ngSwitchDefault</span>>...< /ng-template></p>
+                                     <p>< /div></p>
+
+                                     <p>Conditionally swaps the contents of the div by selecting one of the embedded templates based on the current value of <span>conditionExpression</span>.</p>
+                                 </div>
+
+                                 <div>
+                                     <p>< div [<span>ngClass</span>]="
+                                        {{" {'active': isActive, 'disabled': isDisabled} "}}
+                                        "></p>
+                                     <p>Binds the presence of CSS classes on the element to the truthiness of the associated map values. The right-hand expression should return {{" {class-name: true/false} "}} map.</p>
+                                 </div>
+
+                                 <div>
+                                     <p>< div [<span>ngStyle]</span>="
+                                        {{" {'property': 'value'} "}}
+                                        ">
+                                    </p>
+                                    <p>< div [<span>ngStyle</span>]="dynamicStyles()"></p>
+                                    <p>Allows you to assign styles to an HTML element using CSS. You can use CSS directly, as in the first example, or you can call a method from the component.</p>
+                                </div>
+                             </ng-container>
+                         </mat-expansion-panel>
+                     </mat-accordion>
+                 </ng-container>
+
+
+                <ng-container #content5>
+                    <mat-accordion>
+                         <mat-expansion-panel>
+                             <mat-expansion-panel-header>
+                                 <mat-panel-title>
+                                    Forms
+                                 </mat-panel-title>
+                             </mat-expansion-panel-header>
+ 
+                             <ng-container #content5Content>
+                                 <ng-container #description_5>
+                                    <p>import {{" { "}}  <span>FormsModule</span> {{" } "}} from '@angular/forms';</p>
+                                 </ng-container>
+
+                                 <div>
+                                     <p>< input [(<span>ngModel</span>)]="userName"></p>
+                                     <p>Provides two-way data-binding, parsing, and validation for form controls.</p>
+                                 </div>
+                             </ng-container>
+                         </mat-expansion-panel>
+                     </mat-accordion>
+                 </ng-container>
+
+
+                <ng-container #content6>
+                    <mat-accordion>
+                         <mat-expansion-panel>
+                             <mat-expansion-panel-header>
+                                 <mat-panel-title>
+                                    Class decorators
+                                 </mat-panel-title>
+                             </mat-expansion-panel-header>
+ 
+                             <ng-container #content6Content>
+                                 <ng-container #description_6>
+                                    <p>import {{" { "}} <span>Directive</span>, ... {{" } "}} from '@angular/core';</p>
+                                 </ng-container>
+
+                                 <div>
+                                     <p>@<span>Component</span>( {{"{...} "}})</p>
+                                     <p>{{" class MyComponent() {} "}}</p>
+                                     <p>Declares that a class is a component and provides metadata about the component.</p>
+                                 </div>
+
+                                 <div>
+                                     <p>@<span>Directive</span>({{"{...}"}})</p>
+                                     <p>{{" class MyDirective() {} "}}</p>
+                                     <p>Declares that a class is a directive and provides metadata about the directive.</p>
+                                 </div>
+
+                                 <div>
+                                     <p>@<span>Pipe</span>({{"{...}"}})</p>
+                                     <p>{{" class MyPipe() {} "}}</p>
+                                     <p>Declares that a class is a pipe and provides metadata about the pipe.</p>
+                                 </div>
+
+                                 <div>
+                                     <p>@<span>Injectable</span>()</p>
+                                     <p>{{" class MyService() {} "}}</p>
+                                     <p>Declares that a class can be provided and injected by other classes. Without this decorator, the compiler won't generate enough metadata to allow the class to be created properly when it's injected somewhere.</p>
+                                 </div>
+                             </ng-container>
+                         </mat-expansion-panel>
+                     </mat-accordion>
+                 </ng-container>
+
+
+                <ng-container #content7>
+                    <mat-accordion>
+                         <mat-expansion-panel>
+                             <mat-expansion-panel-header>
+                                 <mat-panel-title>
+                                    Directive configuration
+                                 </mat-panel-title>
+                             </mat-expansion-panel-header>
+ 
+                             <ng-container #content7Content>
+                                 <ng-container #description_7>
+                                    <p>@<span>Directive</span>{{"({ property1: value1, ... })"}}</p>
+                                 </ng-container>
+
+                                 <div>
+                                     <p><span>selector</span>: '.cool-button:not(a)'</p>
+                                     <p>Specifies a CSS selector that identifies this directive within a template. Supported selectors include <span>element</span>, <span>[attribute]</span>, <span>.class</span>, and <span>:not()</span>.</p>
+                                     <p>Does not support parent-child relationship selectors.</p>
+                                 </div>
+
+                                 <div>
+                                     <p><span>providers</span>: [MyService, {{" { provide: ... } "}}]</p>
+                                     <p>List of dependency injection providers for this directive and its children.</p>
+                                 </div>
+                             </ng-container>
+                         </mat-expansion-panel>
+                     </mat-accordion>
+                 </ng-container>
+
+
+                <ng-container #content8>
+                    <mat-accordion>
+                         <mat-expansion-panel>
+                             <mat-expansion-panel-header>
+                                 <mat-panel-title>
+                                    Component configuration
+                                 </mat-panel-title>
+                             </mat-expansion-panel-header>
+ 
+                             <ng-container #content8Content>
+                                 <ng-container #description_8>
+                                    <p>@Component extends @Directive, so the @Directive configuration applies to components as well</p>
+                                 </ng-container>
+
+                                 <div>
+                                     <p><span>moduleId</span>: module.id</p>
+                                     <p>If set, the <span>templateUrl</span> and <span>styleUrl</span> are resolved relative to the component.</p>
+                                 </div>
+
+                                 <div>
+                                     <p><span>viewProviders</span>: [MyService, {{"{ provide: ... }"}}]</p>
+                                     <p>List of dependency injection providers scoped to this component's view.</p>
+                                 </div>
+
+                                 <div>
+                                     <p><span>template</span>: 'Hello {{"{{name}}"}}'</p>
+                                     <p><span>templateUrl</span>: 'my-component.html'</p>
+                                     <p>Inline template or external template URL of the component's view.</p>
+                                 </div>
+
+                                 <div>
+                                     <p><span>styles</span>: ['.primary {{"{color: red}"}}']</p>
+                                     <p><span>styleUrls</span>: ['my-component.css']</p>
+                                     <p>List of inline CSS styles or external stylesheet URLs for styling the component’s view.</p>
+                                 </div>
+                             </ng-container>
+                         </mat-expansion-panel>
+                     </mat-accordion>
+                 </ng-container>
+
+
+                <ng-container #content9>
+                    <mat-accordion>
+                         <mat-expansion-panel>
+                             <mat-expansion-panel-header>
+                                 <mat-panel-title>
+                                    Class field decorators for directives and components
+                                 </mat-panel-title>
+                             </mat-expansion-panel-header>
+ 
+                             <ng-container #content9Content>
+                                 <ng-container #description_9>
+                                    <p>{{" import { Input, ... } from '@angular/core'; "}}</p>
+                                 </ng-container>
+
+                                 <div>
+                                     <p>@<span>Input</span>() myProperty;</p>
+                                     <p>Declares an input property that you can update using property binding (example: <span>< my-cmp [myProperty]="someExpression"></span>).</p>
+                                 </div>
+
+                                 <div>
+                                     <p>@<span>Output</span>() myEvent = new <span>EventEmitter</span>()</p>
+                                     <p>Declares an output property that fires events that you can subscribe to with an event binding (example: <span>< my-cmp (myEvent)="doSomething()"></span>).</p>
+                                 </div>
+
+                                 <div>
+                                     <p>@<span>HostBinding</span>('class.valid') isValid;</p>
+                                     <p>Binds a host element property (here, the CSS class <span>valid</span>) to a directive/component property (<span>isValid</span>).</p>
+                                 </div>
+
+                                 <div>
+                                     <p>@<span>HostListener</span>('click', ['$event']) onClick(e) {{"{...}"}}</p>
+                                     <p>Subscribes to a host element event (<span>click</span>) with a directive/component method (<span>onClick</span>), optionally passing an argument (<span>$event</span>).</p>
+                                 </div>
+
+                                 <div>
+                                     <p>@<span>ContentChild</span>(myPredicate) myChildComponent;</p>
+                                     <p>Binds the first result of the component content query (<span>myPredicate</span>) to a property (<span>myChildComponent</span>) of the class.</p>
+                                 </div>
+
+                                 <div>
+                                     <p>@<span>ContentChildren</span>(myPredicate) myChildComponents;</p>
+                                     <p>Binds the results of the component content query (<span>myPredicate</span>) to a property (<span>myChildComponents</span>) of the class.</p>
+                                 </div>
+
+                                 <div>
+                                     <p>@<span>ViewChild</span>(myPredicate) myChildComponent;</p>
+                                     <p>Binds the first result of the component view query (<span>myPredicate</span>) to a property (<span>myChildComponent</span>) of the class. Not available for directives.</p>
+                                 </div>
+
+                                 <div>
+                                     <p>@<span>ViewChildren</span>(myPredicate) myChildComponents;</p>
+                                     <p>Binds the results of the component view query (<span>myPredicate</span>) to a property (<span>myChildComponents</span>) of the class. Not available for directives.</p>
+                                 </div>
+                             </ng-container>
+                         </mat-expansion-panel>
+                     </mat-accordion>
+                 </ng-container>
+
+
+                <ng-container #content10>
+                    <mat-accordion>
+                         <mat-expansion-panel>
+                             <mat-expansion-panel-header>
+                                 <mat-panel-title>
+                                    Directive and component change detection and lifecycle hooks
+                                 </mat-panel-title>
+                             </mat-expansion-panel-header>
+ 
+                             <ng-container #content10Content>
+                                 <ng-container #description_10>
+                                    <p>(implemented as class methods)</p>
+                                 </ng-container>
+
+                                 <div>
+                                     <p><span>constructor</span>(<span>myService: MyService</span>, ...) {{"{ ... }"}}</p>
+                                     <p>Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.</p>
+                                 </div>
+
+                                 <div>
+                                     <p><span>ngOnChanges(changeRecord)</span> {{"{ ... }"}}</p>
+                                     <p>Called after every change to input properties and before processing content or child views.</p>
+                                 </div>
+
+                                 <div>
+                                     <p><span>ngOnInit()</span> {{"{ ... }"}}</p>
+                                     <p>Called after the constructor, initializing input properties, and the first call to <span>ngOnChanges</span>.</p>
+                                 </div>
+
+                                 <div>
+                                     <p><span>ngDoCheck()</span> {{"{ ... }"}}</p>
+                                     <p>Called every time that the input properties of a component or a directive are checked. Use it to extend change detection by performing a custom check.</p>
+                                 </div>
+
+                                 <div>
+                                     <p><span>ngAfterContentInit()</span> {{"{ ... }"}}</p>
+                                     <p>Called after <span>ngOnInit</span> when the component's or directive's content has been initialized.</p>
+                                 </div>
+
+                                 <div>
+                                     <p><span>ngAfterContentChecked()</span> {{"{ ... }"}}</p>
+                                     <p>Called after every check of the component's or directive's content.</p>
+                                 </div>
+
+                                 <div>
+                                     <p><span>ngAfterViewInit()</span> {{"{ ... }"}}</p>
+                                     <p>Called after <span>ngAfterContentInit</span> when the component's views and child views / the view that a directive is in has been initialized.</p>
+                                 </div>
+
+                                 <div>
+                                     <p><span>ngAfterViewChecked()</span> {{"{ ... }"}}</p>
+                                     <p>Called after every check of the component's views and child views / the view that a directive is in.</p>
+                                 </div>
+
+                                 <div>
+                                     <p><span>ngOnDestroy()</span> {{"{ ... }"}}</p>
+                                     <p>Called once, before the instance is destroyed.</p>
+                                 </div>
+                             </ng-container>
+                         </mat-expansion-panel>
+                     </mat-accordion>
+                 </ng-container>
+
+
+                <ng-container #content11>
+                    <mat-accordion>
+                         <mat-expansion-panel>
+                             <mat-expansion-panel-header>
+                                 <mat-panel-title>
+                                    Dependency injection configuration
+                                 </mat-panel-title>
+                             </mat-expansion-panel-header>
+ 
+                             <ng-container #content11Content>
+                                 <ng-container #description_11>
+                                 </ng-container>
+
+                                 <div>
+                                     <p>{{" { provide: MyService, useClass: MyMockService } "}}</p>
+                                     <p>Sets or overrides the provider for <span>MyService</span> to the <span>MyMockService</span> class.</p>
+                                 </div>
+
+                                 <div>
+                                     <p>{{" { provide: MyService, useFactory: myFactory } "}}</p>
+                                     <p>Sets or overrides the provider for <span>MyService</span> to the <span>myFactory</span> factory function.</p>
+                                 </div>
+
+                                 <div>
+                                     <p>{{" { provide: MyValue, useValue: 41 } "}}</p>
+                                     <p>Sets or overrides the provider for <span>MyValue</span> to the value 41.</p>
+                                 </div>
+                             </ng-container>
+                         </mat-expansion-panel>
+                     </mat-accordion>
+                 </ng-container>
+
+
+                <ng-container #content2>
+                    <mat-accordion>
+                         <mat-expansion-panel>
+                             <mat-expansion-panel-header>
+                                 <mat-panel-title>
+                                    Routing and navigation
+                                 </mat-panel-title>
+                             </mat-expansion-panel-header>
+ 
+                             <ng-container #content12Content>
+                                 <ng-container #description_12>
+                                    <p>{{" import { Routes, RouterModule, ... } from '@angular/router'; "}}</p>
+                                 </ng-container>
+
+                                 <div>
+                                     <p>const routes: <span>Routes</span> = [</p>
+                                     <p>&nbsp;&nbsp;&nbsp;&nbsp;{{" { path: '', component: HomeComponent }, "}}</p>
+                                     <p>&nbsp;&nbsp;&nbsp;&nbsp;{{" { path: 'path/:routeParam', component: MyComponent }, "}}</p>
+                                     <p>&nbsp;&nbsp;&nbsp;&nbsp;{{" { path: 'staticPath', component: ... }, "}}</p>
+                                     <p>&nbsp;&nbsp;&nbsp;&nbsp;{{" { path: '**', component: ... }, "}}</p>
+                                     <p>&nbsp;&nbsp;&nbsp;&nbsp;{{" { path: 'oldPath', redirectTo: '/staticPath' }, "}}</p>
+                                     <p>&nbsp;&nbsp;&nbsp;&nbsp;{{" { path: ..., component: ..., data: { message: 'Custom' } } "}}</p>
+                                     <p>]);</p>
+                                     <p>const routing = RouterModule.forRoot(routes);</p>
+                                     <p>Configures routes for the application. Supports static, parameterized, redirect, and wildcard routes. Also supports custom route data and resolve.</p>
+                                 </div>
+
+                                 <div>
+                                     <p>< <span>router-outlet</span>>< /<span>router-outlet</span>></p>
+                                     <p>< <span>router-outlet</span> name="aux" >< /<span>router-outlet</span>></p>
+                                     <p>Marks the location to load the component of the active route.</p>
+                                 </div>
+
+                                 <div>
+                                     <p>< a <span>routerLink</span>="/path"></p>
+                                     <p>< a [<span>routerLink</span>]="[ '/path', routeParam ]"></p>
+                                     <p>< a [<span>routerLink</span>]="[ '/path', {{"{ matrixParam: 'value' }"}} ]"></p>
+                                     <p>< a [<span>routerLink</span>]="[ '/path' ]" [queryParams]="{{"{ page: 1 }"}}"></p>
+                                     <p>< a [<span>routerLink</span>]="[ '/path' ]" fragment="anchor"></p>
+                                     <p>Creates a link to a different view based on a route instruction consisting of a route path, required and optional parameters, query parameters, and a fragment. To navigate to a root route, use the / prefix; for a child route, use the <span>./</span>prefix; for a sibling or parent, use the <span>../</span> prefix.</p>
+                                 </div>
+
+                                 <div>
+                                     <p>< a [<span>routerLink</span>]="[ '/path' ]" <span>routerLinkActive</span>="active"></p>
+                                     <p>The provided classes are added to the element when the <span>routerLink</span> becomes the current active route.</p>
+                                 </div>
+
+                                 <div>
+                                     <p>class <span>CanActivateGuard</span> implements <span>CanActivate</span> {{" { "}}</p>
+                                     <p>&nbsp;&nbsp;canActivate(</p>
+                                     <p>&nbsp;&nbsp;&nbsp;&nbsp;route: <span>ActivatedRouteSnapshot</span>,</p>
+                                     <p>&nbsp;&nbsp;&nbsp;&nbsp;state: <span>RouterStateSnapshot</span></p>
+                                     <p>&nbsp;&nbsp;&nbsp;&nbsp;): Observable< boolean|<span>UrlTree</span>>|Promise< boolean|<span>UrlTree</span>>|boolean|<span>UrlTree</span> {{"{ ... }"}}</p>
+                                     <p>{{" } "}}</p>
+                                     <p>{{"{ path: ..., canActivate: [CanActivateGuard] }"}}</p>
+                                     <p>An interface for defining a class that the router should call first to determine if it should activate this component. Should return a boolean|UrlTree or an Observable/Promise that resolves to a boolean|UrlTree.</p>
+                                 </div>
+
+                                 <div>
+                                    <p>class <span>CanDeactivate</span>Guard implements <span>CanDeactivate</span>< T> {{"{"}}</p>
+                                    <p>&nbsp;&nbsp;canDeactivate(</p>
+                                    <p>&nbsp;&nbsp;&nbsp;&nbsp;component: T,</p>
+                                    <p>&nbsp;&nbsp;&nbsp;&nbsp;route: <span>ActivatedRouteSnapshot</span>,</p>
+                                    <p>&nbsp;&nbsp;&nbsp;&nbsp;state: <span>RouterStateSnapshot</span></p>
+                                    <p>&nbsp;&nbsp;): Observable< boolean|<span>UrlTree</span>>|Promise< boolean|<span>UrlTree</span>>|boolean|UrlTree {{" { ... } "}}</p>
+                                    <p>{{"}"}}</p>
+                                    <p>{{" { path: ..., canDeactivate: [CanDeactivateGuard] } "}}</p>
+                                    <p>An interface for defining a class that the router should call first to determine if it should deactivate this component after a navigation. Should return a boolean|UrlTree or an Observable/Promise that resolves to a boolean|UrlTree.</p>
+                                 </div>
+
+                                 <div>
+                                    <p>class <span>CanActivateChildGuard</span> implements <span>CanActivateChild</span> {{"{"}}</p>
+                                    <p>&nbsp;&nbsp;canActivateChild(</p>
+                                    <p>&nbsp;&nbsp;&nbsp;&nbsp;route: <span>ActivatedRouteSnapshot</span>,</p>
+                                    <p>&nbsp;&nbsp;&nbsp;&nbsp;state: <span>RouterStateSnapshot</span></p>
+                                    <p>&nbsp;&nbsp;&nbsp;&nbsp;): Observable< boolean|UrlTree>|Promise< boolean|UrlTree>|boolean|UrlTree {{"{ ... }"}}</p>
+                                    <p>{{"}"}}</p>
+                                    <p>{{"{ path: ..., canActivateChild: [CanActivateGuard],children: ... }"}}</p>
+                                    <p>An interface for defining a class that the router should call first to determine if it should activate the child route. Should return a boolean|UrlTree or an Observable/Promise that resolves to a boolean|UrlTree.</p>
+                                 </div>
+
+                                 <div>
+                                    <p>class <span>Resolve</span>Guard implements <span>Resolve</span>< T> {{"{"}}</p>
+                                    <p>&nbsp;&nbsp;resolve(</p>
+                                    <p>&nbsp;&nbsp;&nbsp;&nbsp;route: <span>ActivatedRouteSnapshot</span>,</p>
+                                    <p>&nbsp;&nbsp;&nbsp;&nbsp;state: <span>RouterStateSnapshot</span></p>
+                                    <p>&nbsp;&nbsp;): Observable< any>|Promise< any>|any {{"{ ... }"}}</p>
+                                    <p>{{"}"}}</p>
+                                    <p>{{"{ path: ..., resolve: [ResolveGuard] }"}}</p>
+                                    <p>An interface for defining a class that the router should call first to resolve route data before rendering the route. Should return a value or an Observable/Promise that resolves to a value.</p>
+                                 </div>
+
+                                 <div>
+                                    <p>class <span>CanLoad</span>Guard implements <span>CanLoad</span> {{"{"}}</p>
+                                    <p>&nbsp;&nbsp;canLoad(</p>
+                                    <p>&nbsp;&nbsp;&nbsp;&nbsp;route: <span>Route</span></p>
+                                    <p>&nbsp;&nbsp;): Observable< boolean|UrlTree>|Promise< boolean|UrlTree>|boolean|UrlTree {{"{ ... }"}}</p>
+                                    <p>{{"}"}}</p>
+                                    <p>{{"{ path: ..., canLoad: [CanLoadGuard], loadChildren: ... }"}}</p>
+                                    <p>An interface for defining a class that the router should call first to check if the lazy loaded module should be loaded. Should return a boolean|UrlTree or an Observable/Promise that resolves to a boolean|UrlTree.</p>
+                                 </div>
+                             </ng-container>
+                         </mat-expansion-panel>
+                     </mat-accordion>
+                 </ng-container>
+
+            </ng-container>
+        </mat-accordion>
+    </section>
+</ng-container>

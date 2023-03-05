@@ -1,0 +1,424 @@
+<ng-container>
+    <section>
+        <h1>Installation</h1>
+        <mat-accordion>
+          <ng-container *ngTemplateOutlet="macTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="winTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="linuxTmplt"></ng-container>
+        </mat-accordion>
+    </section>
+</ng-container>
+
+<ng-template #macTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Install Git on Mac OS X
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+            </ng-container>
+
+            <ng-container #content1>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Git for Mac Installer
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description1>
+                            <p>The easiest way to install Git on a Mac is via the stand-alone installer:</p>
+                            <ol>
+                                <li>Download the latest <a href="https://sourceforge.net/projects/git-osx-installer/files/">Git for Mac installer</a>.</li>
+                                <li>Follow the prompts to install Git.</li>
+                                <li>
+                                    <p>Open a terminal and verify the installation was successful by typing git --version:</p>
+                                    <code-example code="
+                                    $ git --version
+
+                                    git version 2.9.2
+                                    "></code-example>
+                                </li>
+                                <li>
+                                    <p>Configure your Git username and email using the following commands, replacing Emma's name with your own. These details will be associated with any commits that you create:</p>
+                                    <code-example code='
+                                    $ git config --global user.name "Emma Paris"
+                                    $ git config --global user.email "eparis@atlassian.com"
+                                    '></code-example>
+                                </li>
+                                <li>(Optional) To make Git remember your username and password when working with HTTPS repositories, configure the <strong>git-credential-osxkeychain helper</strong>.</li>
+                            </ol>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content2>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Install Git with Homebrew
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description1>
+                            <ol>
+                                <li>
+                                    <p>Open your terminal and install Git using Homebrew:</p>
+                                    <code-example code="
+                                    $ brew install git
+                                    "></code-example>
+                                </li>
+                                <li>
+                                    <p>Verify the installation was successful by typing which git --version:</p>
+                                    <code-example code="
+                                    $ git --version git version 2.9.2
+                                    "></code-example>
+                                </li>
+                                <li>
+                                    <p>Configure your Git username and email using the following commands, replacing Emma's name with your own. These details will be associated with any commits that you create:</p>
+                                    <code-example code='
+                                    $ git config --global user.name "Emma Paris"
+                                    $ git config --global user.email "eparis@atlassian.com"
+                                    '></code-example>
+                                </li>
+                                <li>
+                                    <p>(Optional) To make Git remember your username and password when working with HTTPS repositories, install the <strong>git-credential-osxkeychain helper</strong>.</p>
+                                </li>
+                            </ol>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content3>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Install Git with MacPorts
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description1>
+                            <ol>
+                                <li>
+                                    <p>Open your terminal and update MacPorts:</p>
+                                    <code-example code="
+                                    $ sudo port selfupdate
+                                    "></code-example>
+                                </li>
+                                <li>
+                                    <p>Search for the latest available Git ports and variants:</p>
+                                    <code-example code="
+                                    $ port search git
+                                    $ port variants git
+                                    "></code-example>
+                                </li>
+                                <li>
+                                    <p>Install Git with bash completion, the OS X keychain helper, and the docs:</p>
+                                    <code-example code="
+                                    $ sudo port install git +bash_completion+credential_osxkeychain+doc
+                                    "></code-example>
+                                </li>
+                                <li>
+                                    <p>Configure your Git username and email using the following commands, replacing Emma's name with your own. These details will be associated with any commits that you create:</p>
+                                    <code-example code='
+                                    $ git config --global user.name "Emma Paris"
+                                    $ git config --global user.email "eparis@atlassian.com"
+                                    '></code-example>
+                                </li>
+                                <li>
+                                    <p>(Optional) To make Git remember your username and password when working with HTTPS repositories, configure the <strong>git-credential-osxkeychain helper</strong>.</p>
+                                </li>
+                            </ol>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content4>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Install the git-credential-osxkeychain helper
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description1>
+                            <p>Bitbucket supports pushing and pulling your Git repositories over both SSH and HTTPS.</p>
+                            <p>To work with a private repository over HTTPS, you must supply a username and password each time you push or pull. </p>
+                            <p>The <strong>git-credential-osxkeychain helper</strong> allows you to cache your username and password in the OSX keychain, so you don't have to retype it each time.</p>
+                            <ol>
+                                <li>
+                                    <p>If you followed the MacPorts or Homebrew instructions above, the helper should already be installed. Otherwise you'll need to download and install it. Open a terminal window and check:</p>
+                                    <code-example code="
+                                    $ git credential-osxkeychain usage: git credential-osxkeychain 
+                                    "></code-example>
+                                    <br>
+                                    <p>If you receive a usage statement, skip to step 4. If the helper is not installed, go to step 2.</p>
+                                </li>
+                                <li>
+                                    <p>Use curl to download git-credential-osxkeychain (or download it via your browser) and move it to /usr/local/bin:</p>
+                                    <code-example code="
+                                    $ curl -O http://github-media-downloads.s3.amazonaws.com/osx/git-credential-osxkeychain $ sudo mv git-credential-osxkeychain /usr/local/bin/
+                                    "></code-example>
+                                </li>
+                                <li>
+                                    <p>Make the file an executable:</p>
+                                    <code-example code="
+                                    $ chmod u+x /usr/local/bin/git-credential-osxkeychain
+                                    "></code-example>
+                                </li>
+                                <li>
+                                    <p>Configure git to use the osxkeychain credential helper.</p>
+                                    <code-example code="
+                                    $ git config --global credential.helper osxkeychain
+                                    "></code-example>
+                                    <br>
+                                    <p>The next time Git prompts you for a username and password, it will cache them in your keychain for future use.</p>
+                                </li>
+                            </ol>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content5>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Install Git with Atlassian Sourcetree
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description1>
+                            <p>Sourcetree, a free visual Git client for Mac, comes with its own bundled version of Git. You can <a href="https://www.sourcetreeapp.com/">download Sourcetree here</a>.</p>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content6>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Build Git from source on OS X
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description1>
+                            <p>Building Git can be a little tricky on Mac due to certain libraries moving around between OS X releases. On El Capitan (OS X 10.11), follow these instructions to build Git:</p>
+                            <ol>
+                                <li>
+                                    <p>From your terminal install XCode's Command Line Tools (if you haven't already):</p>
+                                    <code-example code="
+                                    $ xcode-select --install
+                                    "></code-example>
+                                </li>
+                                <li>
+                                    <p>Install <a href="https://brew.sh/">Homebrew</a></p>
+                                </li>
+                                <li>
+                                    <p>Using Homebrew, install openssl:</p>
+                                    <code-example code="
+                                    $ brew install openssl
+                                    "></code-example>
+                                </li>
+                                <li>
+                                    <p>Clone the Git source (or if you don't yet have a version of Git installed, download and extract it):</p>
+                                    <code-example code="
+                                    $ git clone https://github.com/git/git.git
+                                    "></code-example>
+                                </li>
+                                <li>
+                                    <p>To build Git run make with the following flags:</p>
+                                    <code-example code='
+                                    $ NO_GETTEXT=1 make CFLAGS="-I/usr/local/opt/openssl/include" LDFLAGS="-L/usr/local/opt/openssl/lib"
+                                    '></code-example>
+                                </li>
+                            </ol>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+            
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #winTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Install Git on Windows
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+            </ng-container>
+
+            <ng-container #content1>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Git for Windows stand-alone installer
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description1>
+                            <ol>
+                                <li>
+                                    <p>Download the latest <a href="https://gitforwindows.org/">Git for Windows installer</a></p>
+                                </li>
+                                <li>
+                                    <p>When you've successfully started the installer, you should see the <strong>Git Setup</strong> wizard screen. Follow the <strong>Next</strong> and <strong>Finish</strong> prompts to complete the installation. The default options are pretty sensible for most users.</p>
+                                </li>
+                                <li>
+                                    <p>Open a Command Prompt (or Git Bash if during installation you elected not to use Git from the Windows Command Prompt).</p>
+                                </li>
+                                <li>
+                                    <p>Run the following commands to configure your Git username and email using the following commands, replacing Emma's name with your own. These details will be associated with any commits that you create:</p>
+                                    <code-example code='
+                                    $ git config --global user.name "Emma Paris" $ git config --global user.email "eparis@atlassian.com"
+                                    '></code-example>
+                                </li>
+                                <li>
+                                    <p>Optional: Install the Git credential helper on Windows</p>
+                                    <p>Bitbucket supports pushing and pulling over HTTP to your remote Git repositories on Bitbucket. Every time you interact with the remote repository, you must supply a username/password combination. </p>
+                                    <p>You can store these credentials, instead of supplying the combination every time, with the <a href="https://github.com/Microsoft/Git-Credential-Manager-for-Windows">Git Credential Manager for Windows</a>.</p>
+                                </li>
+                            </ol>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content2>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Install Git with Atlassian Sourcetree
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description1>
+                            <p>Sourcetree, a free visual Git client for Windows, comes with its own bundled version of Git. You can <a href="https://www.sourcetreeapp.com/">download Sourcetree here</a>.</p>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #linuxTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Install Git on Linux
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+            </ng-container>
+
+            <ng-container #content1>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Debian / Ubuntu (apt-get)
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description2>
+                            <p>Git packages are available via <a href="https://wiki.debian.org/Apt">apt</a> </p>
+                            <ol>
+                                <li>
+                                    <p>From your shell, install Git using apt-get:</p>
+                                    <code-example code="
+                                    $ sudo apt-get update
+
+                                    $ sudo apt-get install git
+                                    "></code-example>
+                                </li>
+                                <li>
+                                    <p>Verify the installation was successful by typing git --version:</p>
+                                    <code-example code="
+                                    $ git --version
+
+                                    git version 2.9.2
+                                    "></code-example>
+                                </li>
+                                <li>
+                                    <p>Configure your Git username and email using the following commands, replacing Emma's name with your own. These details will be associated with any commits that you create:</p>
+                                    <code-example code='
+                                    $ git config --global user.name "Emma Paris"
+                                    $ git config --global user.email "eparis@atlassian.com"
+                                    '></code-example>
+                                </li>
+                            </ol>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content2>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Fedora (dnf/yum)
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description1>
+                            <p>Git packages are available via both <a href="https://fedoraproject.org/wiki/Yum">yum</a>  and <a href="https://fedoraproject.org/wiki/DNF?rd=Dnf">dnf</a>:</p>
+                            <ol>
+                                <li>
+                                    <p>From your shell, install Git using dnf (or yum, on older versions of Fedora):</p>
+                                    <code-example code="
+                                    $ sudo dnf install git
+                                    "></code-example>
+                                    <p>or</p>
+                                    <code-example code="
+                                    $ sudo yum install git
+                                    "></code-example>
+                                </li>
+                                <li>
+                                    <p>Verify the installation was successful by typing git --version:</p>
+                                    <code-example code="
+                                    $ git --version
+
+                                    git version 2.9.2
+                                    "></code-example>
+                                </li>
+                                <li>
+                                    <p>Configure your Git username and email using the following commands, replacing Emma's name with your own. These details will be associated with any commits that you create</p>
+                                    <code-example code='
+                                    $ git config --global user.name "Emma Paris"
+                                    $ git config --global user.email "eparis@atlassian.com"
+                                    '></code-example>
+                                </li>
+                            </ol>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>

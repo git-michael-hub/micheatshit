@@ -1,0 +1,175 @@
+<ng-container>
+    <section>
+        <h1>Major Actions</h1>
+        <mat-accordion>
+          <ng-container *ngTemplateOutlet="subsTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="tearTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="unsubsTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="observationTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="observationChainTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="nextTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="errorTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="completeTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="notifTmplt"></ng-container>
+        </mat-accordion>
+    </section>
+</ng-container>
+
+<ng-template #subsTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Subscribe
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+                <p>The act of a <strong>consumer</strong> requesting an Observable set up a <strong>subscription</strong> so that it may <strong>observe</strong> a <strong>producer</strong>.</p>
+                <p>A subscribe action can occur with an observable via many different mechanisms.</p>
+                <p>The primary mechanism is the <strong>subscribe method</strong> on the <strong>Observable class</strong>.</p>
+                <p>Other mechanisms include the <strong>forEach method</strong>, functions like <strong>lastValueFrom</strong>, and <strong>firstValueFrom</strong>, and the deprecated <strong>toPromise method</strong>.</p>
+
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #tearTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Teardown
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+                <p>The act of cleaning up resources used by a producer. </p>
+                <p> This is guaranteed to happen on <code>error</code>, <code>complete</code>, or if unsubscription occurs.</p>
+                <p>This is not to be confused with <strong>unsubscription</strong>, but it does always happen during unsubscription.</p>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #unsubsTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Unsubscription
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+                <p>The act of a <strong>consumer</strong> telling a <strong>producer </strong> is no longer interested in receiving values. Causes <strong>Teardown</strong></p>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #observationTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Observation
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+                <p>A <strong>consumer</strong> reacting to <strong>next</strong>, <strong>error</strong>, or <strong>complete notifications</strong>. This can only happen during <strong>subscription</strong>.</p>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #observationChainTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Observation Chain
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+                <p>When an <strong>observable</strong> uses another <strong>observable</strong> as a <strong>producer</strong>, an "observation chain" is set up. </p>
+                <p>That is a chain of <strong>observation</strong> such that multiple <strong>observers</strong> are <strong>notifying</strong> each other in a unidirectional way toward the final <strong>consumer</strong>.</p>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #nextTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Next
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+                <p>A value has been pushed to the <strong>consumer</strong> to be <strong>observed</strong>. </p>
+                <p>Will only happen during <strong>subscription</strong>, and cannot happen after <strong>error</strong>, <strong>complete</strong>, or <strong>unsubscription</strong>.</p>
+                <p>Logically, this also means it cannot happen after <strong>teardown</strong>.</p>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #errorTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Error
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+                <p>The <strong>producer</strong> has encountered a problem and is notifying the <strong>consumer</strong>. </p>
+                <p>This is a notification that the <strong>producer</strong> will no longer send values and will <strong>teardown</strong>.</p>
+                <p>This cannot occur after <strong>complete</strong>, any other <strong>error</strong>, or <strong>unsubscription</strong>.</p>
+                <p>Logically, this also means it cannot happen after <strong>teardown</strong>.</p>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #completeTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Complete
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+                <p>The <strong>producer</strong> is notifying the <strong>consumer</strong> that it is done <strong>nexting</strong> values, without error, will send no more values, and it will <strong>teardown</strong>.</p>
+                <p><strong>Completion</strong> cannot occur after an <strong>error</strong>, or <strong>unsubscribe</strong>. <strong>Complete</strong> cannot be called twice. </p>
+                <p><strong>Complete</strong>, if it occurs, will always happen before <strong>teardown</strong>.</p>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #notifTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Notification
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+                <p>The act of a <strong>producer</strong> pushing <strong>nexted</strong> values, <strong>errors</strong> or <strong>completions</strong> to a <strong>consumer</strong> to be <strong>observed</strong>. </p>
+                <p>Not to be confused with the <strong>Notification type</strong> , which is notification manifested as a JavaScript object.</p>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>

@@ -1,0 +1,51 @@
+<ng-container>
+    <section>
+        <h1>Parsing a Stylesheet</h1>
+        <br>
+        <p>A Sass stylesheet is parsed from a sequence of Unicode code points. It's parsed directly, without first being converted to a token stream.</p>
+
+        <mat-accordion>
+            <ng-container *ngTemplateOutlet="inputTmplt"></ng-container>
+            <ng-container *ngTemplateOutlet="errorsTmplt"></ng-container>
+        </mat-accordion>
+    </section>
+</ng-container>
+
+<ng-template #inputTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Input Encoding
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+                <p>It’s often the case that a document is initially available only as a sequence of bytes, which must be decoded into Unicode. Sass performs this decoding as follows:</p>
+                <ul>
+                    <li>If the sequence of bytes begins with the UTF-8 or UTF-16 encoding of U+FEFF BYTE ORDER MARK, the corresponding encoding is used.</li>
+                    <li>If the sequence of bytes begins with the plain ASCII string @charset, Sass determines the encoding using step 2 of the CSS algorithm for determining the fallback encoding.</li>
+                    <li>Otherwise, UTF-8 is used.</li>
+                </ul>
+            </ng-container>
+        </ng-container>
+    </mat-expansion-panel>
+</ng-template>
+
+<ng-template #errorsTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Parse Errors
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+                <p>When Sass encounters invalid syntax in a stylesheet, parsing will fail and an error will be presented to the user with information about the location of the invalid syntax and the reason it was invalid.</p>
+                <p>Note that this is different than CSS, which specifies how to recover from most errors rather than failing immediately. This is one of the few cases where SCSS isn’t strictly a superset of CSS. However, it’s much more useful to Sass users to see errors immediately, rather than having them passed through to the CSS output.</p>
+                <p>The location of parse errors can be accessed through implementation-specific APIs. For example, in Dart Sass you can access SassException.span, and in Node Sass’s and Dart Sass’s JS API you can access the file, line, and column properties.</p>
+            </ng-container>
+        </ng-container>
+    </mat-expansion-panel>
+</ng-template>

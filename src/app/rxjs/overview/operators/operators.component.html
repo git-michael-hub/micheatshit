@@ -1,0 +1,511 @@
+<ng-container>
+    <section>
+        <h1>Operators</h1>
+        <mat-accordion>
+          <ng-container *ngTemplateOutlet="overviewTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="higherOrderTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="categoryTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="customTmplt"></ng-container>
+        </mat-accordion>
+    </section>
+</ng-container>
+
+<ng-template #overviewTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Overview
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+                <p>Operators are <strong>functions</strong>. </p>
+                <p>There are two kinds of <strong>operators</strong>:</p>
+                <ul>
+                    <li>
+                        <p><strong>Pipeable Operators</strong> can be piped to Observables using the syntax <code>observableInstance.pipe(operator())</code>. These include, <code>filter(...)</code>, and <code>mergeMap(...)</code></p>
+                        <p class="note">A Pipeable Operator is a function that takes an Observable as its input and returns another Observable. It is a pure operation: the previous Observable stays unmodified.</p>
+                        <p>Unreadable function <code>op4()(op3()(op2()(op1()(obs))))</code> can be accomplish with a readable <code>.pipe()</code></p>
+                        <code-example code="
+                        obs.pipe(op1(), op2(), op3(), op4());
+                        "></code-example>
+                    </li>
+                    <li>
+                        <p><strong>Creation Operators</strong> can be called as standalone functions to create a new Observable with some common predefined behavior or by joining other Observables.</p>
+                        <code-example code="
+                        import { of } from 'rxjs';
+                        import { map } from 'rxjs/operators';
+                        
+                        of(1, 2, 3)
+                          .pipe(map((x) => x * x))
+                          .subscribe((v) => console.log(`value: ${v}`));
+                        
+                        // Logs:
+                        // value: 1
+                        // value: 4
+                        // value: 9
+                        "></code-example>
+                    </li>
+                </ul>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #higherOrderTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Higher-order Observables
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+                <p>Example:</p>
+                <code-example code="
+                const fileObservable = urlObservable.pipe(map((url) => http.get(url)));
+                "></code-example>
+                <p>urlObservable is an Observable and <code>http.get()</code> returns an Observable, so-called higher-order Observables.</p>
+                <p>Handling higher-order Observables is by flattening, converting it into an ordinary Observable.</p>
+                <code-example code="
+                const fileObservable = urlObservable.pipe(
+                map((url) => http.get(url)),
+                concatAll()
+                );
+                "></code-example>
+                <p>The <code>concatAll()</code> operator subscribes to each "inner" Observable that comes out of the "outer" Observable, and copies all the emitted values until that Observable completes, and goes on to the next one. All of the values are in that way concatenated. </p>
+                <p>Useful flattening operators:</p>
+                <ul>
+                    <li><code>mergeAll()</code> subscribes to each inner Observable as it arrives, then emits each value as it arrives</li>
+                    <li><code>switchAll()</code> subscribes to the first inner Observable when it arrives, and emits each value as it arrives, but when the next inner Observable arrives, unsubscribes to the previous one, and subscribes to the new one.</li>
+                    <li><code>exhaust()</code> subscribes to the first inner Observable when it arrives, and emits each value as it arrives, discarding all newly arriving inner Observables until that first one completes, then waits for the next inner Observable.</li>
+                </ul>
+                <p>Just as many array libraries combine <code>map()</code> and <code>flat()</code> (or flatten()) into a single <code>flatMap()</code>, there are mapping equivalents of all the RxJS flattening operators <code>concatMap()</code>, <code>mergeMap()</code>, <code>switchMap()</code>, and <code>exhaustMap()</code>.</p>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #categoryTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Categories of operators
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+                <p>There are operators for different purposes, and they may be categorized as: <strong>creation</strong>, <strong>transformation</strong>, <strong>filtering</strong>, <strong>joining</strong>, <strong>multicasting</strong>, <strong>error handling</strong>, <strong>utility</strong>, etc.</p>
+            </ng-container>
+
+            <ng-container #content1>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Creation Operators
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+
+                        <ng-container #description1>
+                            <ul>
+                                <li>ajax</li>
+                                <li>bindCallback</li>
+                                <li>bindNodeCallback</li>
+                                <li>defer</li>
+                                <li>empty</li>
+                                <li>from</li>
+                                <li>fromEvent</li>
+                                <li>fromEventPattern</li>
+                                <li>generate</li>
+                                <li>interval</li>
+                                <li>of</li>
+                                <li>range</li>
+                                <li>throwError</li>
+                                <li>timer</li>
+                                <li>iif</li>
+                            </ul>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content2>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Join Creation Operators
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+
+                        <ng-container #description2>
+                            <p>These are Observable creation operators that also have join functionality -- emitting values of multiple source Observables.</p>
+                            <ul>
+                                <li>combineLatest</li>
+                                <li>concat</li>
+                                <li>forkJoin</li>
+                                <li>merge</li>
+                                <li>partition</li>
+                                <li>race</li>
+                                <li>zip</li>
+                            </ul>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content3>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Transformation Operators
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+
+                        <ng-container #description3>
+                            <ul>
+                                <li>buffer</li>
+                                <li>bufferCount</li>
+                                <li>bufferTime</li>
+                                <li>bufferToggle</li>
+                                <li>bufferWhen</li>
+                                <li>concatMap</li>
+                                <li>concatMapTo</li>
+                                <li>exhaust</li>
+                                <li>exhaustMap</li>
+                                <li>expand</li>
+                                <li>groupBy</li>
+                                <li>map</li>
+                                <li>mapTo</li>
+                                <li>mergeMap</li>
+                                <li>mergeMapTo</li>
+                                <li>mergeScan</li>
+                                <li>pairwise</li>
+                                <li>partition</li>
+                                <li>pluck</li>
+                                <li>scan</li>
+                                <li>switchScan</li>
+                                <li>switchMap</li>
+                                <li>switchMapTo</li>
+                                <li>window</li>
+                                <li>windowCount</li>
+                                <li>windowTime</li>
+                                <li>windowToggle</li>
+                                <li>windowWhen</li>
+                            </ul>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content4>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Filtering Operators
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+
+                        <ng-container #description4>
+                            <ul>
+                                <li>audit</li>
+                                <li>auditTime</li>
+                                <li>debounce</li>
+                                <li>debounceTime</li>
+                                <li>distinct</li>
+                                <li>distinctUntilChanged</li>
+                                <li>distinctUntilKeyChanged</li>
+                                <li>elementAt</li>
+                                <li>filter</li>
+                                <li>first</li>
+                                <li>ignoreElements</li>
+                                <li>last</li>
+                                <li>sample</li>
+                                <li>sampleTime</li>
+                                <li>single</li>
+                                <li>skip</li>
+                                <li>skipLast</li>
+                                <li>skipUntil</li>
+                                <li>skipWhile</li>
+                                <li>take</li>
+                                <li>takeLast</li>
+                                <li>takeUntil</li>
+                                <li>takeWhile</li>
+                                <li>throttle</li>
+                                <li>throttleTime</li>
+                            </ul>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content5>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Join Operators
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+
+                        <ng-container #description5>
+                            <ul>
+                                <li>combineLatestAll</li>
+                                <li>concatAll</li>
+                                <li>exhaustAll</li>
+                                <li>mergeAll</li>
+                                <li>switchAll</li>
+                                <li>startWith</li>
+                                <li>withLatestFrom</li>
+                            </ul>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content6>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Multicasting Operators
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+
+                        <ng-container #description6>
+                            <ul>
+                                <li>multicast</li>
+                                <li>publish</li>
+                                <li>publishBehavior</li>
+                                <li>publishLast</li>
+                                <li>publishReplay</li>
+                                <li>share</li>
+                            </ul>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content7>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Error Handling Operators
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+
+                        <ng-container #description7>
+                            <ul>
+                                <li>catchError</li>
+                                <li>retry</li>
+                                <li>retryWhen</li>
+                            </ul>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content8>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Utility Operators
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+
+                        <ng-container #description8>
+                            <ul>
+                                <li>tap</li>
+                                <li>delay</li>
+                                <li>delayWhen</li>
+                                <li>dematerialize</li>
+                                <li>materialize</li>
+                                <li>observeOn</li>
+                                <li>subscribeOn</li>
+                                <li>timeInterval</li>
+                                <li>timestamp</li>
+                                <li>timeout</li>
+                                <li>timeoutWith</li>
+                                <li>toArray</li>
+                            </ul>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content9>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Conditional and Boolean Operators
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+
+                        <ng-container #description9>
+                            <ul>
+                                <li>defaultIfEmpty</li>
+                                <li>every</li>
+                                <li>find</li>
+                                <li>findIndex</li>
+                                <li>isEmpty</li>
+                            </ul>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content10>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Mathematical and Aggregate Operators
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+
+                        <ng-container #description10>
+                            <ul>
+                                <li>count</li>
+                                <li>max</li>
+                                <li>min</li>
+                                <li>reduce</li>
+                            </ul>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #customTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Creating custom operators
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+            </ng-container>
+
+            <ng-container #content1>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Use the pipe() function to make new operators
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+
+                        <ng-container #description1>
+                            <p>Use the <code>pipe()</code> function to extract the sequence into a new operator.</p>
+                            <code-example code="
+                            import { pipe } from 'rxjs';
+                            import { filter, map } from 'rxjs/operators';
+
+                            function discardOddDoubleEven() {
+                            return pipe(
+                                filter((v) => !(v % 2)),
+                                map((v) => v + v)
+                            );
+                            }
+                            "></code-example>
+                            <p>The <code>pipe()</code> function is analogous to, but not the same thing as, the <code>.pipe()</code> method on an Observable.</p>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content2>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Creating new operators from scratch
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+
+                        <ng-container #description2>
+                            <p>You can write an operator from scratch using the <strong>Observable constructor</strong></p>
+                            <code-example code="
+                            import { Observable, of } from 'rxjs';
+ 
+                            function delay<T>(delayInMillis: number) {
+                              return (observable: Observable<T>) =>
+                                new Observable<T>((subscriber) => {
+                                  // this function will be called each time this
+                                  // Observable is subscribed to.
+                                  const allTimerIDs = new Set();
+                                  let hasCompleted = false;
+                                  const subscription = observable.subscribe({
+                                    next(value) {
+                                      // Start a timer to delay the next value
+                                      // from being pushed.
+                                      const timerID = setTimeout(() => {
+                                        subscriber.next(value);
+                                        // after we push the value, we need to clean up the timer timerID
+                                        allTimerIDs.delete(timerID);
+                                        // If the source has completed, and there are no more timers running,
+                                        // we can complete the resulting observable.
+                                        if (hasCompleted && allTimerIDs.size === 0) {
+                                          subscriber.complete();
+                                        }
+                                      }, delayInMillis);
+                             
+                                      allTimerIDs.add(timerID);
+                                    },
+                                    error(err) {
+                                      // We need to make sure we're propagating our errors through.
+                                      subscriber.error(err);
+                                    },
+                                    complete() {
+                                      hasCompleted = true;
+                                      // If we still have timers running, we don't want to yet.
+                                      if (allTimerIDs.size === 0) {
+                                        subscriber.complete();
+                                      }
+                                    },
+                                  });
+                             
+                                  // Return the teardown logic. This will be invoked when
+                                  // the result errors, completes, or is unsubscribed.
+                                  return () => {
+                                    subscription.unsubscribe();
+                                    // Clean up our timers.
+                                    for (const timerID of allTimerIDs) {
+                                      clearTimeout(timerID);
+                                    }
+                                  };
+                                });
+                            }
+                             
+                            // Try it out!
+                            of(1, 2, 3).pipe(delay(1000)).subscribe(console.log);
+                            "></code-example>
+                            <br>
+                            <p>Note that you must:</p>
+                            <ol>
+                                <li>implement all three Observer functions, next(), error(), and complete() when subscribing to the input Observable.</li>
+                                <li>implement a "teardown" function that cleans up when the Observable completes (in this case by unsubscribing and clearing any pending timeouts).</li>
+                                <li>return that teardown function from the function passed to the Observable constructor.</li>
+                            </ol>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+

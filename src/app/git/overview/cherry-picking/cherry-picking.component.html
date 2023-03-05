@@ -1,0 +1,22 @@
+<ng-container>
+    <section>
+        <h1>Cherry Picking</h1>
+        <br>        
+        <p>Cherry-picking allows you to pick up a commit from your reflog or another branch of your project and move it to your current branch.</p>
+        <p>Cherry-pick the commit from file 4:</p>
+        <ol>
+            <li>Find the commit ID where you added file4.md: <code>git reflog</code></li>
+            <li>Cherry-pick that commit: <code>git cherry-pick < SHA></code></li>
+        </ol>
+        <p>Now when you view your directory and log, you should see:</p>
+        <code-example code="
+        $ ls
+        file4.md
+        README.md
+        $ git log --oneline
+        eanu482 adding file 4
+        84nqdkq initializing repo with README
+        "></code-example>
+        <p class="note">Remember, when using any commands that change history, it's important to make these changes before pushing to GitHub. When you change a commit ID that has been pushed to the remote, you risk creating problems for your collaborators.</p>
+    </section>
+</ng-container>

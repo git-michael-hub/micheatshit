@@ -1,0 +1,87 @@
+<ng-container>
+    <section>
+        <h1>Syntax</h1>
+        <br>
+        <p>Sass supports two different syntaxes.</p>
+
+        <mat-accordion>
+            <ng-container *ngTemplateOutlet="scssTmplt"></ng-container>
+            <ng-container *ngTemplateOutlet="sassTmplt"></ng-container>
+        </mat-accordion>
+    </section>
+</ng-container>
+
+<ng-template #scssTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            SCSS
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+                <p>The SCSS syntax uses the file extension <code>.scss</code>. With a few small exceptions, it’s a superset of CSS, which means essentially <strong>all valid CSS is valid SCSS as well</strong>. Because of its similarity to CSS, it’s the easiest syntax to get used to and the most popular.</p>
+                <code-example code="
+                @mixin button-base() {
+                    @include typography(button);
+                    @include ripple-surface;
+                    @include ripple-radius-bounded;
+                  
+                    display: inline-flex;
+                    position: relative;
+                    height: $button-height;
+                    border: none;
+                    vertical-align: middle;
+                  
+                    &:hover { cursor: pointer; }
+                  
+                    &:disabled {
+                      color: $mdc-button-disabled-ink-color;
+                      cursor: default;
+                      pointer-events: none;
+                    }
+                }
+                "></code-example>
+            </ng-container>
+        </ng-container>
+    </mat-expansion-panel>
+</ng-template>
+
+<ng-template #sassTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            The Indented Syntax
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+                <p>The indented syntax was <strong>Sass’s original syntax</strong>, and so it uses the file extension <code>.sass</code>. Because of this extension, it’s sometimes just called <strong>“Sass”</strong>. The indented syntax supports all the same features as SCSS, but it uses indentation instead of curly braces and semicolons to describe the format of the document.</p>
+                <p>In general, any time you’d write curly braces in CSS or SCSS, you can just indent one level deeper in the indented syntax. And any time a line ends, that counts as a semicolon.</p>
+            
+                <code-example code="
+                @mixin button-base()
+                    @include typography(button)
+                    @include ripple-surface
+                    @include ripple-radius-bounded
+                
+                    display: inline-flex
+                    position: relative
+                    height: $button-height
+                    border: none
+                    vertical-align: middle
+                
+                    &:hover
+                        cursor: pointer
+                
+                    &:disabled
+                        color: $mdc-button-disabled-ink-color
+                        cursor: default
+                        pointer-events: none
+                "></code-example>
+            </ng-container>
+        </ng-container>
+    </mat-expansion-panel>
+</ng-template>

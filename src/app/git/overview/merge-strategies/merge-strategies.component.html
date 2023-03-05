@@ -1,0 +1,75 @@
+<ng-container>
+    <section>
+        <h1>Merge strategies: Rebase</h1>
+        <mat-accordion>
+          <ng-container *ngTemplateOutlet="primaryTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="aboutTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="toTmplt"></ng-container>
+        </mat-accordion>
+    </section>
+</ng-container>
+
+<ng-template #primaryTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Git uses three primary merge strategies
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+                <ul>
+                    <li><strong>Fast-forward</strong> - A fast-forward merge assumes that no changes have been made on the base branch since the feature branch was created. This means that the branch pointer for base can simply be "fast forwarded" to point to the same commit as the feature branch.</li>
+                    <li><strong>Recursive</strong> - A recursive merge means that changes have been made on both the base branch and the feature branch and git needs to recursively combine them. With a recursive merge, a new "merge commit" is made to mark the point in time when the two branches came together. This merge commit is special because it has more than one parent.</li>
+                    <li><strong>Octopus</strong> - A merge of 3 or more branches is an octopus merge. This will also create a merge commit with multiple parents.</li>
+                </ul>
+            </ng-container>
+        </ng-container>
+    </mat-expansion-panel>
+</ng-template>
+
+<ng-template #aboutTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            About Git rebase
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+                <p><code>git rebase</code> enables you to modify your commit history in a variety of ways. For example, you can use it to reorder commits, edit them, squash multiple commits into one, and much more.</p>
+                <p><code>git rebase --interactive</code>, or <code>git rebase -i</code>:</p>
+                <ul>
+                    <li>Replay one branch on top of another branch</li>
+                    <li>Edit previous commit messages</li>
+                    <li>Combine multiple commits into one</li>
+                    <li>Delete or revert commits that are no longer necessary</li>
+                </ul>
+            </ng-container>
+        </ng-container>
+    </mat-expansion-panel>
+</ng-template>
+
+<ng-template #toTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            To rebase
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+                <ol>
+                    <li>Switch to the <code>rebase-me</code> branch: <code>git switch rebase-me</code></li>
+                    <li>Start the merge: <code>git rebase -i main</code></li>
+                    <li>Take another look at your history: <code>git log --oneline --graph --decorate --all</code></li>
+                    <li>Switch to main, the branch you will merge into: <code>git switch main</code></li>
+                    <li>Merge your changes in to main: <code>git merge rebase-me</code></li>
+                </ol>
+            </ng-container>
+        </ng-container>
+    </mat-expansion-panel>
+</ng-template>

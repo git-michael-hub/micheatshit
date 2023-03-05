@@ -1,0 +1,36 @@
+<ng-container>
+    <section>
+        <h1>Observable</h1>
+        <mat-accordion>
+          <p>An <strong>Observer</strong> is a consumer of values delivered by an <strong>Observable</strong>. <strong>Observers</strong> are simply a set of callbacks, one for each type of notification delivered by the <strong>Observable</strong>: next, error, and complete.</p>
+          <code-example code="
+          const observer = {
+            next: x => console.log('Observer got a next value: ' + x),
+            error: err => console.error('Observer got an error: ' + err),
+            complete: () => console.log('Observer got a complete notification'),
+          };
+          "></code-example>
+          <br>
+          <p>To use the <strong>Observer</strong>, provide it to the <code>subscribe</code> of an Observable:</p>
+          <code-example code="
+          observable.subscribe(observer);
+          "></code-example>
+          <br>
+          <p class="note">Observers are just objects with three callbacks, one for each type of notification that an Observable may deliver.</p>
+          <p><strong>Observers</strong> in RxJS may also be partial. If you don't provide one of the callbacks, the execution of the <strong>Observable</strong> will still happen normally, except some types of notifications will be ignored, because they don't have a corresponding callback in the <strong>Observer</strong>.</p>
+          <p>The example below is an <strong>Observer</strong> without the complete callback:</p>
+          <code-example code="
+          const observer = {
+            next: x => console.log('Observer got a next value: ' + x),
+            error: err => console.error('Observer got an error: ' + err),
+          };
+          "></code-example>
+          <br>
+          <p>When subscribing to an <strong>Observable</strong>, you may also just provide the next callback as an argument, without being attached to an <strong>Observer</strong> object, for instance like this:</p>
+          <code-example code="
+          observable.subscribe(x => console.log('Observer got a next value: ' + x));
+          "></code-example>
+        </mat-accordion>
+    </section>
+</ng-container>
+

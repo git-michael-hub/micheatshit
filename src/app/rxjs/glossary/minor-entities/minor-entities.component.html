@@ -1,0 +1,169 @@
+<ng-container>
+    <section>
+        <h1>Minor Entities</h1>
+        <mat-accordion>
+          <ng-container *ngTemplateOutlet="operatorTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="operatorFncTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="operationTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="streamTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="srcTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="obsTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="notTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="innerTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="partialTmplt"></ng-container>
+        </mat-accordion>
+    </section>
+</ng-container>
+
+<ng-template #operatorTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Operator
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+              <p>A factory function that creates an <strong>operator function</strong>.</p>
+              <p>Examples of this in rxjs are functions like <strong>map</strong> and <strong>mergeMap</strong>, which are generally passed to <strong>pipe</strong>. </p>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #operatorFncTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Operator Function
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+              <p>A function that takes an <strong>observable</strong>, and maps it to a new <strong>observable</strong>.</p>
+              <p>Operator functions are created by <strong>operators</strong>.</p>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #operationTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Operation
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+              <p>An action taken while handling a <strong>notification</strong>, as set up by an <strong>operator</strong> and/or <strong>operator function</strong>.</p>
+              <p>In RxJS, a developer can chain several <strong>operator functions</strong> together by calling <strong>operators</strong> and passing the created <strong>operator functions</strong> to the <strong>pipe</strong> method of <strong>Observable</strong>, which results in a new <strong>observable</strong>.</p>
+              <p>During <strong>subscription</strong> to that observable, operations are performed in an order dictated by the <strong>observation chain</strong>.</p>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #streamTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Stream
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+              <p>A "stream" or "streaming" in the case of observables, refers to the collection of <strong>operations</strong>, as they are processed during a <strong>subscription</strong>. </p>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #srcTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Source
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+              <p>A <strong>observable</strong> or <strong>valid observable input</strong> having been converted to an <strong>observable</strong>, that will supply values to another observable, either as the result of an <strong>operator</strong> or other function that creates one observable as another. </p>
+              <p>This <strong>source</strong>, will be the <strong>producer</strong> for the resulting <strong>observable</strong> and all of its <strong>subscriptions</strong>.</p>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #obsTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Observable Inputs
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+              <p>A "observable input", is any type that can easily converted to an <strong>Observable</strong>. Observable Inputs may sometimes be referred to as "valid observable sources".</p>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #notTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Notifier
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+              <p>An <strong>observable</strong> that is being used to notify another <strong>observable</strong> that it needs to perform some action.</p>
+                <p>The action should only occur on a <strong>next notification</strong>, and never on <strong>error</strong> or <strong>complete</strong>.</p>
+                <p>Generally, notifiers are used with specific operators, such as <strong>takeUntil</strong>, <strong>buffer</strong>, or <strong>delayWhen</strong>. A notifier may be passed directly, or it may be returned by a callback.</p>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #innerTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Inner Source
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+              <p>One, of possibly many <strong>sources</strong>, which are <strong>subscribed</strong> to automatically within a single <strong>subscription</strong> to another observable. </p>
+              <p>Examples of an "inner source" include the <strong>observable inputs</strong> returned by the mapping function in a <strong>mergeMap operator</strong>.</p>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #partialTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Partial Observer
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+              <p>An <strong>observer</strong> that lacks all necessary <strong>notification</strong> handlers. Generally these are supplied by user-land <strong>consumer</strong> code.</p>
+              <p> A "full observer" or "observer" would simply be an observer than had all <strong>notification</strong> handlers.</p>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>

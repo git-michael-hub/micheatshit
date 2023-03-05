@@ -1,0 +1,116 @@
+<ng-container>
+    <section>
+        <h1>Major Concepts</h1>
+        <mat-accordion>
+          <ng-container *ngTemplateOutlet="mulTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="uniTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="coldTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="hotTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="pushTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="pullTmplt"></ng-container>
+        </mat-accordion>
+    </section>
+</ng-container>
+
+<ng-template #mulTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Multicast
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+              <p>The act of one <strong>producer</strong> being <strong>observed</strong> by many <strong>consumers</strong>.</p>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #uniTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Unicast
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+              <p>The act of one <strong>producer</strong> being observed only one <strong>consumer</strong>. </p>
+              <p>An observable is "unicast" when it only connects one <strong>producer</strong> to one <strong>consumer</strong>. </p>
+              <p>Unicast doesn't necessarily mean <strong>"cold"</strong>.</p>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #coldTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Cold
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+              <p>An observable is "cold" when it creates a new <strong>producer</strong> during <strong>subscribe</strong> for every new <strong>subscription</strong>. As a result, a "cold" observables are always <strong>unicast</strong></p>
+              <p>Cold observables can be made <strong>hot</strong> but not the other way around.</p>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #hotTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Hot
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+              <p>An observable is "hot", when its <strong>producer</strong> was created outside of the context of the <strong>subscribe</strong> action. This means that the "hot" observable is almost always <strong>multicast</strong>.</p>
+              <p>For the purposes of discussion, all "hot" observables can be assumed to be <strong>multicast</strong>. Hot observables cannot be made <strong>cold</strong>.</p>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #pushTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Push
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+              <p><strong>Observables</strong> are a push-based type.</p>
+              <p>That means rather than having the <strong>consumer</strong> call a function or perform some other action to get a value, the <strong>consumer</strong> receives values as soon as the <strong>producer</strong> has produced them, via a registered <strong>next</strong> handler.</p>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #pullTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Pull
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+              <p>Pull-based systems are the opposite of <strong>push</strong>-based.</p>
+              <p>In a pull-based type or system, the <strong>consumer</strong> must request each value the <strong>producer</strong> has produced manually, perhaps long after the <strong>producer</strong> has actually done so.</p>
+              <p>Examples of such systems are <strong>Functions</strong> and <strong>Iterators</strong>.</p>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>

@@ -1,0 +1,19 @@
+<ng-container>
+    <section>
+        <h1>Redo commits</h1>
+        <br>        
+        <p>Erase mistakes and craft replacement history</p>
+        <code-example code="
+        $ git reset [commit]
+        "></code-example>
+        <br>
+        <p>Undoes all commits after [<code>commit</code>], preserving changes locally</p>
+        <code-example code="
+        $ git reset --hard [commit]
+        "></code-example>
+        <p>Discards all history and changes back to the specified commit</p>
+        <p class="note">
+            CAUTION! Changing history can have nasty side effects. If you need to change commits that exist on GitHub (the remote), proceed with caution. If you need help, reach out at github.community or contact support.
+        </p>
+    </section>
+</ng-container>

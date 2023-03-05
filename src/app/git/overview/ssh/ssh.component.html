@@ -1,0 +1,272 @@
+<ng-container>
+    <section>
+        <h1>SSH KEY</h1>
+        <mat-accordion>
+          <ng-container *ngTemplateOutlet="overviewTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="windowsTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="linuxTmplt"></ng-container>
+        </mat-accordion>
+    </section>
+</ng-container>
+
+<ng-template #overviewTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+              Overview
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+                <p>An <strong>SSH key</strong> is an access credential for the <strong>SSH (secure shell)</strong> network protocol. This authenticated and encrypted secure network protocol is used for remote communication between machines on an unsecured open network. </p>
+                <p><strong>SSH</strong> is used for remote file transfer, network management, and remote operating system access. The <strong>SSH acronym</strong> is also used to describe a set of tools used to interact with the <strong>SSH protocol</strong>.</p>
+                <br>
+                <p><strong>SSH</strong> uses a pair of keys to initiate a secure handshake between remote parties. The key pair contains a public and private key</p>
+                <p>The private vs public nomenclature can be confusing as they are both called keys. It is more helpful to think of the public key as a "lock" and the private key as the "key". You give the public 'lock' to remote parties to encrypt or 'lock' data. This data is then opened with the 'private' key which you hold in a secure place.</p>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #windowsTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Creating an SSH key on Windows
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+            </ng-container>
+
+            <ng-container #content1>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                1. Check for existing SSH keys
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description1>
+                            <p>You should check for existing SSH keys on your local computer. You can use an existing SSH key with Bitbucket Server if you want, in which case you can go straight to either <a href="https://confluence.atlassian.com/bitbucketserver076/ssh-user-keys-for-personal-use-1026534846.html">SSH user keys for personal use</a> or <a href="https://confluence.atlassian.com/bitbucketserver076/ssh-access-keys-for-system-use-1026534854.html">SSH access keys for system use</a> </p>
+                            <p>Open a command prompt, and run:</p>
+                            <code-example code="
+                            cd %userprofile%/.ssh
+                            "></code-example>
+                            <br>
+                            <p>If you see "No such file or directory", then there aren't any existing keys:  go to step 3.</p>
+                            <p>Check to see if you have a key already:</p>
+                            <code-example code="
+                            dir id_*
+                            "></code-example>
+                            <p>If there are existing keys, you may want to use those: go to either <a href="https://confluence.atlassian.com/bitbucketserver076/ssh-user-keys-for-personal-use-1026534846.html">SSH user keys for personal use</a> or <a href="https://confluence.atlassian.com/bitbucketserver076/ssh-access-keys-for-system-use-1026534854.html">SSH access keys for system use</a></p>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content2>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                2. Back up old SSH keys
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description1>
+                            <p>If you have existing SSH keys, but you don't want to use them when connecting to Bitbucket Server, you should back those up.</p>
+                            <p>In a command prompt on your local computer, run:</p>
+                            <code-example code="
+                            mkdir key_backup
+                            copy id_ed25519* key_backup
+                            "></code-example>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content3>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                3. Generate a new SSH key
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description1>
+                            <p>If you don't have an existing SSH key that you wish to use, generate one as follows:</p>
+
+                            <ol>
+                                <li>Log in to your local computer as an administrator.</li>
+                                <li>
+                                    <p>In a command prompt, run:</p>
+                                    <code-example code='
+                                    ssh-keygen -t ed25519 -C "your_email@example.com"
+                                    '></code-example>
+                                    <p>Associating the key with your email address helps you to identify the key later on.</p>
+                                    <p>Note that the ssh-keygen command is only available if you have already installed Git (with Git Bash).</p>
+                                    <p>You'll see a response similar to this: </p>
+                                    <code-example code='
+                                    C:\Users\ASUS>ssh-keygen -t ed25519 -C "your_email@example.com"
+                                    Generating public/private ed25519 key pair.
+                                    Enter file in which to save the key (/c/Users/ASUS/.ssh/id_ed25519):
+                                    '></code-example>
+                                </li>
+                                <li>Just press < Enter> to accept the default location and file name. If the .ssh directory doesn't exist, the system creates one for you.</li>
+                                <li>
+                                    <p>Enter, and re-enter, a passphrase when prompted. The whole interaction will look similar to this:</p>
+                                    <code-example code='
+                                    C:\Users\ASUS>ssh-keygen -t ed25519 -C "your_email@example.com"
+                                    Generating public/private ed25519 key pair.
+                                    Enter file in which to save the key (/c/Users/ASUS/.ssh/id_ed25519):
+                                    Created directory "/c/Users/ASUS/.ssh".
+                                    Enter passphrase (empty for no passphrase):
+                                    Enter same passphrase again:
+                                    Your identification has been saved in c/Users/ASUS/.ssh/id_ed25519.
+                                    Your public key has been saved in c/Users/ASUS/.ssh/id_ed25519.pub.
+                                    The key fingerprint is:
+                                    SHA256:wvaHYeLtY6+DlvV5sFZgDi3RTAe8R2KY23N78qrGqJE your_email@example.com
+                                    '></code-example>
+                                </li>
+                                <li>You're done! Now go to either <a href="https://confluence.atlassian.com/bitbucketserver076/ssh-user-keys-for-personal-use-1026534846.html">SSH user keys for personal use</a> or <a href="https://confluence.atlassian.com/bitbucketserver076/ssh-access-keys-for-system-use-1026534854.html">SSH access keys for system use</a></li>
+                                
+
+                            </ol>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #linuxTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Creating an SSH key on Linux & macOS
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+            </ng-container>
+
+            <ng-container #content1>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                1. Check for existing SSH keys
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description1>
+                            <p>You should check for existing SSH keys on your local computer. You can use an existing SSH key with Bitbucket Server if you want, in which case you can go straight to either <a href="https://confluence.atlassian.com/bitbucketserver076/ssh-user-keys-for-personal-use-1026534846.html">SSH user keys for personal use</a> or <a href="https://confluence.atlassian.com/bitbucketserver076/ssh-access-keys-for-system-use-1026534854.html">SSH access keys for system use</a> </p>
+                            <p>Open a command prompt, and run:</p>
+                            <code-example code="
+                            cd ~/.ssh
+                            "></code-example>
+                            <p>If you see "No such file or directory, then there aren't any existing keys:  go to step 3.</p>
+                            <p>Check to see if you have a key already:</p>
+                            <code-example code="
+                            ls id_*
+                            "></code-example>
+                            <p>If there are existing keys, you may want to use those: go to either <a href="https://confluence.atlassian.com/bitbucketserver076/ssh-user-keys-for-personal-use-1026534846.html">SSH user keys for personal use</a> or <a href="https://confluence.atlassian.com/bitbucketserver076/ssh-access-keys-for-system-use-1026534854.html">SSH access keys for system use</a></p>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content2>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                2. Back up old SSH keys
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description1>
+                            <p>If you have existing SSH keys, but you don't want to use them when connecting to Bitbucket Server, you should back those up.</p>
+                            <p>Do this in a terminal on your local computer, by running:</p>
+                            <code-example code="
+                            mkdir key_backup
+                            cp id_ed25519* key_backup
+                            "></code-example>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content3>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                3. Generate a new key
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description1>
+                            <p>If you don't have an existing SSH key that you wish to use, generate one as follows:</p>
+
+                            <ol>
+                                <li>
+                                    <p>Open a terminal on your local computer and enter the following:</p>
+                                    <code-example code='
+                                    ssh-keygen -t ed25519 -C "your_email@example.com"  
+                                    '></code-example>
+                                    <p>Associating the key with your email address helps you to identify the key later on.</p>
+                                    <p>You'll see a response similar to this:</p>
+                                    <code-example code="
+                                    chaiss@C02FP1JWMD6V ~ % ssh-keygen -t ed25519 -C chaiss@email.com
+                                    Generating public/private ed25519 key pair.
+                                    Enter file in which to save the key (/Users/chaiss/.ssh/id_ed25519): 
+                                    "></code-example>
+                                </li>
+                                <li>Just press < Enter> to accept the default location and file name. If the .ssh directory doesn't exist, the system creates one for you.</li>
+                                <li>
+                                    <p>Enter, and re-enter, a passphrase when prompted. The whole interaction will look similar to this:</p>
+                                    <code-example code="
+                                    chaiss@C02FP1JWMD6V ~ % ssh-keygen -t ed25519 -C chaiss@email.com
+                                    Generating public/private ed25519 key pair.
+                                    Enter file in which to save the key (/Users/chaiss/.ssh/id_ed25519): 
+                                    Enter passphrase (empty for no passphrase): 
+                                    Enter same passphrase again: 
+                                    Your identification has been saved in /Users/chaiss/.ssh/id_ed25519.
+                                    Your public key has been saved in /Users/chaiss/.ssh/id_ed25519.pub.
+                                    The key fingerprint is:
+                                    SHA256:gTVWKbn41z6JgBNu3wYjLC4H6oW5bmhaXyaVABwmEtE chaiss@email.com
+                                    The key's randomart image is:
+                                    +--[ED25519 256]--+
+                                    |==+.    +o..     |
+                                    |.oE.   +o..      |
+                                    |    . ...o       |
+                                    |     .o...       |
+                                    |     oo+S  .     |
+                                    |  + ..B = . .    |
+                                    |.+.+.oo+ * o .   |
+                                    |o++.o+  . + +    |
+                                    |B+ o.    .   .   |
+                                    +----[SHA256]-----+
+                                    chaiss@C02FP1JWMD6V ~ % 
+                                    "></code-example>
+                                </li>
+                                <li>You're done! Now go to either <a href="https://confluence.atlassian.com/bitbucketserver076/ssh-user-keys-for-personal-use-1026534846.html">SSH user keys for personal use</a> or <a href="https://confluence.atlassian.com/bitbucketserver076/ssh-access-keys-for-system-use-1026534854.html">SSH access keys for system use</a></li>
+                            </ol>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+

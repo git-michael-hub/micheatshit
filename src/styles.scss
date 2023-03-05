@@ -1,1 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
+
+mat-expansion-panel {
+    strong {
+        color: #80b8d3 !important;
+    }
+}
+
+.git strong {
+    color: #80b8d3 !important;
+}
+
+.note {
+    border-left-style: solid;
+    border-left-width: 5px;
+    border-left-color: #3f50b5;
+    padding-left: 0.5em;
+    margin: 1em 0 !important;
+}
+
+span.ex {
+    color: #fafafa !important;
+}
+
+mat-expansion-panel {
+    p {
+        margin-bottom: 25px !important;
+    }
+}

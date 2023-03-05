@@ -1,0 +1,63 @@
+<ng-container>
+    <section>
+        <h1>Other Concepts</h1>
+        <mat-accordion>
+          <ng-container *ngTemplateOutlet="unTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="proTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="upsTmplt"></ng-container>
+        </mat-accordion>
+    </section>
+</ng-container>
+
+<ng-template #unTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Unhandled Errors
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+              <p>An "unhandled error" is any <strong>error</strong> that is not handled by a <strong>consumer</strong>-provided function, which is generally provided during the <strong>subscribe</strong> action.</p>
+              <P>If no error handler was provided, RxJS will assume the error is "unhandled" and rethrow the error on a new callstack or prevent "producer interference"</P>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #proTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Producer Interference
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+              <p><strong>Producer</strong> interference happens when an error is allowed to unwind the callstack the RxJS callstack during <strong>notification</strong>.</p>
+              <p>When this happens, the error could break things like for-loops in <strong>upstream sources</strong> that are <strong>notifying consumers</strong> during a <strong>multicast</strong>.</p>
+              <p>That would cause the other <strong>consumers</strong> in that <strong>multicast</strong> to suddenly stop receiving values without logical explanation.</p>
+              <p>As of version 6, RxJS goes out of its way to prevent producer interference by ensuring that all unhandled errors are thrown on a separate callstack.</p>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #upsTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Upstream And Downstream
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+              <p>The order in which <strong>notifications</strong> are processed by <strong>operations</strong> in a <strong>stream</strong> have a directionality to them.</p>
+              <p>"Upstream" refers to an <strong>operation</strong> that was already processed before the current <strong>operation</strong>, and "downstream" refers to an <strong>operation</strong> that will be processed after the current operation.</p>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>

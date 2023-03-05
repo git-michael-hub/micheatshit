@@ -1,0 +1,128 @@
+<ng-container>
+    <section>
+        <h1>Scheduler</h1>
+        <mat-accordion>
+          <ng-container *ngTemplateOutlet="overviewTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="typesTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="usingTmplt"></ng-container>
+        </mat-accordion>
+    </section>
+</ng-container>
+
+<ng-template #overviewTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Overview
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+                <p>A scheduler controls when a subscription starts and when notifications are delivered. It consists of three components.</p>
+                <ul>
+                    <li><strong>A Scheduler is a data structure</strong>. It knows how to store and queue tasks based on priority or other criteria.</li>
+                    <li><strong>A Scheduler is an execution context</strong>. It denotes where and when the task is executed (e.g. immediately, or in another callback mechanism such as setTimeout or process.nextTick, or the animation frame).</li>
+                    <li><strong>A Scheduler has a (virtual) clock</strong>. It provides a notion of "time" by a getter method now() on the scheduler. Tasks being scheduled on a particular scheduler will adhere only to the time denoted by that clock.</li>
+                </ul>
+                <p class="note">A Scheduler lets you define in what execution context will an Observable deliver notifications to its Observer.</p>
+                <p>In the example below, we take the usual simple Observable that emits values 1, 2, 3 synchronously, and use the operator observeOn to specify the async scheduler to use for delivering those values.</p>
+                <code-example code="
+                import { Observable, asyncScheduler } from 'rxjs';
+                import { observeOn } from 'rxjs/operators';
+                
+                const observable = new Observable((observer) => {
+                observer.next(1);
+                observer.next(2);
+                observer.next(3);
+                observer.complete();
+                }).pipe(
+                observeOn(asyncScheduler)
+                );
+                
+                console.log('just before subscribe');
+                observable.subscribe({
+                next(x) {
+                    console.log('got value ' + x)
+                },
+                error(err) {
+                    console.error('something wrong occurred: ' + err);
+                },
+                complete() {
+                    console.log('done');
+                }
+                });
+                console.log('just after subscribe');
+
+                just before subscribe
+                just after subscribe
+                got value 1
+                got value 2
+                got value 3
+                done
+                "></code-example>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #typesTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Scheduler Types
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+                <p>The <code>async</code> Scheduler is one of the built-in schedulers provided by RxJS. Each of these can be created and returned by using static properties of the <code>Scheduler</code> object.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <td>SCHEDULER</td>
+                            <td>PURPOSE</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>null</td>
+                            <td>By not passing any scheduler, notifications are delivered synchronously and recursively. Use this for constant-time operations or tail recursive operations.</td>
+                        </tr>
+                        <tr>
+                            <td>queueScheduler</td>
+                            <td>Schedules on a queue in the current event frame (trampoline scheduler). Use this for iteration operations.</td>
+                        </tr>
+                        <tr>
+                            <td>asapScheduler</td>
+                            <td>Schedules on the micro task queue, which is the same queue used for promises. Basically after the current job, but before the next job. Use this for asynchronous conversions.</td>
+                        </tr>
+                        <tr>
+                            <td>asyncScheduler</td>
+                            <td>Schedules work with setInterval. Use this for time-based operations.</td>
+                        </tr>
+                        <tr>
+                            <td>animationFrameScheduler</td>
+                            <td>Schedules task that will happen just before next browser content repaint. Can be used to create smooth browser animations.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #usingTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Using Schedulers
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>

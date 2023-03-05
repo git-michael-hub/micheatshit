@@ -1,0 +1,64 @@
+<ng-container>
+    <section>
+        <h1>Nesting</h1>
+        <br>
+        <p>Sass will let you nest your CSS selectors in a way that follows the same visual hierarchy of your HTML.</p>
+        <p class="note"> Be aware that overly nested rules will result in over-qualified CSS that could prove hard to maintain and is generally considered bad practice.</p>
+        <br>
+        <h3>SCSS</h3>
+        <code-example code="
+        nav {
+            ul {
+                margin: 0;
+                padding: 0;
+                list-style: none;
+            }
+
+            li { display: inline-block; }
+
+            a {
+                display: block;
+                padding: 6px 12px;
+                text-decoration: none;
+            }
+        }
+        "></code-example>
+        <br>
+        <h3>Sass</h3>
+        <code-example code="
+        nav
+            ul
+                margin: 0
+                padding: 0
+                list-style: none
+
+            li
+                display: inline-block
+
+            a
+                display: block
+                padding: 6px 12px
+                text-decoration: none
+        "></code-example>
+        <br>
+        <h3>CSS</h3>
+        <code-example code="
+        nav ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        nav li {
+            display: inline-block;
+        }
+        nav a {
+            display: block;
+            padding: 6px 12px;
+            text-decoration: none;
+        }
+          
+        "></code-example>
+        <br>
+        <p>You'll notice that the ul, li, and a selectors are nested inside the nav selector. This is a great way to organize your CSS and make it more readable.</p>
+    </section>
+</ng-container>

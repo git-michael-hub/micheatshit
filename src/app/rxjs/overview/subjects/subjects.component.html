@@ -1,0 +1,280 @@
+<ng-container>
+    <section>
+        <h1>Subject</h1>
+        <mat-accordion>
+          <ng-container *ngTemplateOutlet="overviewTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="multicastedTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="behaviorTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="replayTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="asyncTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="voidTmplt"></ng-container>
+        </mat-accordion>
+    </section>
+</ng-container>
+
+<ng-template #overviewTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Overview
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+              <p> An RxJS <strong>Subject</strong> is a special type of <strong>Observable</strong> that allows values to be multicasted to many Observers. While plain <strong>Observables</strong> are <strong>unicas</strong>t (each subscribed Observer owns an independent execution of the Observable), <strong>Subjects are multicast</strong>.</p>
+              <p class="note">A Subject is like an Observable, but can multicast to many Observers. Subjects are like EventEmitters: they maintain a registry of many listeners.</p>
+              <p><strong>Every Subject is an Observable</strong>. Given a Subject, you can subscribe to it, providing an Observer, which will start receiving values normally. From the perspective of the Observer, it cannot tell whether the Observable execution is coming from a plain unicast Observable or a Subject.</p>
+              <p><strong>Every Subject is an Observer</strong>. It is an object with the methods next(v), error(e), and complete(). To feed a new value to the Subject, just call next(theValue), and it will be multicasted to the Observers registered to listen to the Subject.</p>
+              <p>Two Observers attached to a Subject:</p>
+              <code-example code="
+              import { Subject } from 'rxjs';
+ 
+              const subject = new Subject<number>();
+              
+              subject.subscribe({
+                next: (v) => console.log(`observerA: ${v}`)
+              });
+              subject.subscribe({
+                next: (v) => console.log(`observerB: ${v}`)
+              });
+              
+              subject.next(1);
+              subject.next(2);
+              
+              // Logs:
+              // observerA: 1
+              // observerB: 1
+              // observerA: 2
+              // observerB: 2
+              "></code-example>
+              <br>
+              <p>Since a <strong>Subject is an Observer</strong>, this also means you may provide a Subject as the argument to the subscribe of any Observable</p>
+              <code-example code="
+              import { Subject, from } from 'rxjs';
+ 
+              const subject = new Subject<number>();
+              
+              subject.subscribe({
+                next: (v) => console.log(`observerA: ${v}`)
+              });
+              subject.subscribe({
+                next: (v) => console.log(`observerB: ${v}`)
+              });
+              
+              const observable = from([1, 2, 3]);
+              
+              observable.subscribe(subject); // You can subscribe providing a Subject
+              
+              // Logs:
+              // observerA: 1
+              // observerB: 1
+              // observerA: 2
+              // observerB: 2
+              // observerA: 3
+              // observerB: 3
+              "></code-example>
+              <br>
+              <p>With the approach above, we essentially just converted a unicast Observable execution to multicast, through the Subject.</p>
+              <p>Few specializations of the Subject type: <strong>BehaviorSubject</strong>, <strong>ReplaySubject</strong>, and <strong>AsyncSubject</strong>.</p>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #multicastedTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Multicasted Observables
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+              <p class="note">A multicasted Observable uses a Subject under the hood to make multiple Observers see the same Observable execution.</p>
+              <p>Under the hood, this is how the <strong>multicast operator</strong> works: Observers subscribe to an underlying Subject, and the Subject subscribes to the source Observable.</p>
+              <code-example code="
+              import { from, Subject } from 'rxjs';
+              import { multicast } from 'rxjs/operators';
+              
+              const source = from([1, 2, 3]);
+              const subject = new Subject();
+              const multicasted = source.pipe(multicast(subject));
+              
+              // These are, under the hood, `subject.subscribe({...})`:
+              multicasted.subscribe({
+                next: (v) => console.log(`observerA: ${v}`)
+              });
+              multicasted.subscribe({
+                next: (v) => console.log(`observerB: ${v}`)
+              });
+              
+              // This is, under the hood, `source.subscribe(subject)`:
+              multicasted.connect();
+              "></code-example>
+              <br>
+              <p><code>multicast</code> returns an Observable that looks like a normal Observable, but works like a Subject when it comes to subscribing. <code>multicast</code> returns a <code>ConnectableObservable</code>, which is simply an Observable with the <code>connect()</code> method.</p>
+              <p>The <code>connect()</code> method is important to determine exactly when the shared Observable execution will start. Because <code>connect()</code> does <code>source.subscribe(subject)</code> under the hood, <code>connect()</code> returns a Subscription, which you can unsubscribe from in order to cancel the shared Observable execution.</p>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #behaviorTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            BehaviorSubject
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+              <p><strong>BehaviorSubject</strong> has a notion of <strong>"the current value"</strong>>. It stores the latest value emitted to its consumers, and whenever a new Observer subscribes, it will immediately receive the "current value" from the BehaviorSubject.</p>
+              <p>Example: the BehaviorSubject is initialized with the value 0 which the first Observer receives when it subscribes. The second Observer receives the value 2 even though it subscribed after the value 2 was sent.</p>
+              <code-example code="
+              import { BehaviorSubject } from 'rxjs';
+              const subject = new BehaviorSubject(0); // 0 is the initial value
+              
+              subject.subscribe({
+                next: (v) => console.log(`observerA: ${v}`)
+              });
+              
+              subject.next(1);
+              subject.next(2);
+              
+              subject.subscribe({
+                next: (v) => console.log(`observerB: ${v}`)
+              });
+              
+              subject.next(3);
+              
+              // Logs
+              // observerA: 0
+              // observerA: 1
+              // observerA: 2
+              // observerB: 2
+              // observerA: 3
+              // observerB: 3
+              "></code-example>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #replayTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            ReplaySubject
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+              <p>A <strong>ReplaySubject</strong> is similar to a BehaviorSubject in that it can send old values to new subscribers, but it can also record a part of the Observable execution.</p>
+              <p class="note">A ReplaySubject records multiple values from the Observable execution and replays them to new subscribers.</p>
+              <p>When creating a <strong>ReplaySubject</strong>, you can specify how many values to replay:</p>
+              <code-example code="
+              import { ReplaySubject } from 'rxjs';
+              const subject = new ReplaySubject(3); // buffer 3 values for new subscribers
+               
+              subject.subscribe({
+                next: (v) => console.log(`observerA: ${v}`)
+              });
+               
+              subject.next(1);
+              subject.next(2);
+              subject.next(3);
+              subject.next(4);
+               
+              subject.subscribe({
+                next: (v) => console.log(`observerB: ${v}`)
+              });
+               
+              subject.next(5);
+               
+              // Logs:
+              // observerA: 1
+              // observerA: 2
+              // observerA: 3
+              // observerA: 4
+              // observerB: 2
+              // observerB: 3
+              // observerB: 4
+              // observerA: 5
+              // observerB: 5
+              "></code-example>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #asyncTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            AsyncSubject
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+              <p>The <strong>AsyncSubject</strong> is a variant where only the last value of the Observable execution is sent to its observers, and only when the execution completes.</p>
+              <code-example code="
+              import { AsyncSubject } from 'rxjs';
+              const subject = new AsyncSubject();
+              
+              subject.subscribe({
+                next: (v) => console.log(`observerA: ${v}`)
+              });
+              
+              subject.next(1);
+              subject.next(2);
+              subject.next(3);
+              subject.next(4);
+              
+              subject.subscribe({
+                next: (v) => console.log(`observerB: ${v}`)
+              });
+              
+              subject.next(5);
+              subject.complete();
+              
+              // Logs:
+              // observerA: 5
+              // observerB: 5
+              "></code-example>
+              <p class="note">The AsyncSubject is similar to the last() operator, in that it waits for the complete notification in order to deliver a single value.</p>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #voidTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Void subject
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+              <code-example code="
+              import { Subject } from 'rxjs';
+
+              const subject = new Subject(); // Shorthand for Subject<void>
+
+              subject.subscribe({
+                next: () => console.log('One second has passed')
+              });
+
+              setTimeout(() => subject.next(), 1000);
+              "></code-example>
+              <p class="note">Before version 7, the default type of Subject values was any. Subject< any> disables type checking of the emitted values, whereas Subject< void> prevents accidental access to the emitted value. If you want the old behavior, then replace Subject with Subject< any>.</p>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>

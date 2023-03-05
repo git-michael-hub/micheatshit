@@ -1,0 +1,469 @@
+<ng-container>
+    <section>
+        <h1>Observable</h1>
+        <mat-accordion>
+          <ng-container *ngTemplateOutlet="overviewTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="pullPushTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="functionTmplt"></ng-container>
+          <ng-container *ngTemplateOutlet="anatomyTmplt"></ng-container>
+        </mat-accordion>
+    </section>
+</ng-container>
+
+<ng-template #overviewTmplt>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Overview
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #content>
+            <ng-container #description>
+               <p>Observables are lazy Push collections of multiple values</p>
+               <table>
+                   <thead>
+                       <tr>
+                           <td></td>
+                           <td>SINGLE</td>
+                           <td>MULTIPLE</td>
+                       </tr>
+                   </thead>
+                   <tbody>
+                       <tr>
+                           <td>Pull</td>
+                           <td><strong>Function</strong></td>
+                           <td><strong>Iterator</strong></td>
+                       </tr>
+                       <tr>
+                            <td>Push</td>
+                            <td><strong>Promise</strong></td>
+                            <td><strong>Observable</strong></td>
+                        </tr>
+                   </tbody>
+               </table>
+               <p><span class="ex">Example</span>. The following is an Observable that pushes the values 1, 2, 3 immediately (synchronously) when subscribed, and the value 4 after one second has passed since the subscribe call, then completes:</p>
+               <code-example code="
+               import { Observable } from 'rxjs';
+
+               const observable = new Observable(subscriber => {
+                 subscriber.next(1);
+                 subscriber.next(2);
+                 subscriber.next(3);
+                 setTimeout(() => {
+                   subscriber.next(4);
+                   subscriber.complete();
+                 }, 1000);
+               });
+               "></code-example>
+               <br>
+               <p>To invoke the Observable and see these values, we need to subscribe to it:</p>
+               <code-example code="
+               console.log('just before subscribe');
+               observable.subscribe({
+                 next(x) { console.log('got value ' + x); },
+                 error(err) { console.error('something wrong occurred: ' + err); },
+                 complete() { console.log('done'); }
+               });
+               console.log('just after subscribe');
+               "></code-example>
+               <br>
+               <p>Output:</p>
+               <code-example code="
+               just before subscribe
+               got value 1
+               got value 2
+               got value 3
+               just after subscribe
+               got value 4
+               done
+               "></code-example>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #pullPushTmplt>
+  <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Pull versus Push
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <ng-container #content>
+          <ng-container #description>
+            <p><strong>Pull</strong> and <strong>Push</strong> are two different protocols that describe how a data <strong>Producer</strong> can communicate with a data <strong>Consumer</strong>.</p>
+            <table>
+              <thead>
+                  <tr>
+                      <td></td>
+                      <td>PRODUCER</td>
+                      <td>CONSUMER</td>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>Pull</td>
+                      <td><strong>Passive</strong>: produces data when requested.</td>
+                      <td><strong>Active</strong>: decides when data is requested</td>
+                  </tr>
+                  <tr>
+                       <td>Push</td>
+                       <td><strong>Active</strong>: produces data at its own pace</td>
+                       <td><strong>Passive</strong>: reacts to received data</td>
+                   </tr>
+              </tbody>
+          </table>
+          </ng-container>
+
+          <ng-container #content1>
+            <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Pull
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <ng-container #description1>
+                        <p>In Pull systems, the <strong>Consumer</strong> determines when it receives data from the data <strong>Producer</strong>. The <strong>Producer</strong> itself is unaware of when the data will be delivered to the <strong>Consumer</strong>.</p>
+
+                        <p>Every JavaScript Function is a Pull system. The function is a Producer of data, and the code that calls the function is consuming it by "pulling" out a single return value from its call.</p>
+
+                        <p>ES2015 introduced <strong>generator functions and iterators</strong> (<code>function*</code>), another type of Pull system. Code that calls <code>iterator.next()</code> is the Consumer, "pulling" out multiple values from the iterator (the Producer).</p>
+                    </ng-container>
+                </mat-expansion-panel>
+            </mat-accordion>
+          </ng-container>
+
+          <ng-container #content2>
+            <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Push
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <ng-container #description2>
+                      <p>In Push systems, the <strong>Producer</strong> determines when to send data to the <strong>Consumer</strong>. The <strong>Consumer</strong> is unaware of when it will receive that data.</p>
+                      <p><strong>Promises</strong> are the most common type of Push system in JavaScript today. A <strong>Promise</strong> (the Producer) delivers a resolved value to registered callbacks (the Consumers), but unlike functions, it is the <strong>Promise</strong> which is in charge of determining precisely when that value is "pushed" to the callbacks.</p>
+                      <p>RxJS introduces <strong>Observables</strong>, a new Push system for JavaScript. An <strong>Observables</strong> is a Producer of multiple values, "pushing" them to <strong>Observers</strong> (Consumers).</p>
+                    
+                    </ng-container>
+                </mat-expansion-panel>
+            </mat-accordion>
+          </ng-container>
+
+          <div>
+            <br>
+            <ul>
+              <li><strong>Function</strong> is a lazily evaluated computation that synchronously returns a single value on invocation.</li>
+              <li><strong>Generator</strong> is a lazily evaluated computation that synchronously returns zero to (potentially) infinite values on iteration.</li>
+              <li><strong>Promise</strong> is a computation that may (or may not) eventually return a single value.</li>
+              <li><strong>Observable</strong> is a lazily evaluated computation that can synchronously or asynchronously return zero to (potentially) infinite values from the time it's invoked onwards.</li>
+            </ul>
+          </div>
+      </ng-container>
+    </mat-expansion-panel>
+</ng-template>
+
+<ng-template #functionTmplt>
+  <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Observables as generalizations of functions
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <ng-container #content>
+          <ng-container #description>
+            <p><strong>Observables</strong> are not like <strong>EventEmitters</strong> nor are they like <strong>Promises</strong> for multiple values.</p>
+            <p class="note">Observables are like functions with zero arguments, but generalize those to allow multiple values.</p>
+            <p>Function:</p>
+            <code-example code="
+            function foo() {
+              console.log('Hello');
+              return 42;
+            }
+            
+            const x = foo.call(); // same as foo()
+            console.log(x);
+            const y = foo.call(); // same as foo()
+            console.log(y);
+            "></code-example>
+            <p>Function Output:</p>
+            <code-example code='
+            "Hello"
+            42
+            "Hello"
+            42
+            '></code-example>
+            <br>
+            <p>Observable:</p>
+            <code-example code="
+            import { Observable } from 'rxjs';
+ 
+            const foo = new Observable(subscriber => {
+              console.log('Hello');
+              subscriber.next(42);
+            });
+             
+            foo.subscribe(x => {
+              console.log(x);
+            });
+            foo.subscribe(y => {
+              console.log(y);
+            });
+            "></code-example>
+            <p>Observable Output:</p>
+            <code-example code='
+            "Hello"
+            42
+            "Hello"
+            42
+            '></code-example>
+            <br>
+            <p>This happens because both <strong>functions</strong> and <strong>Observables</strong> are lazy computations.</p>
+            <p>If you don't call the <strong>function</strong>, the <code>console.log('Hello')</code> won't happen.</p>
+            <p>Also with <strong>Observables</strong>, if you don't "call" it (with subscribe), the <code>console.log('Hello')</code> won't happen. </p>
+            <p>Plus, "calling" or "subscribing" is an isolated operation: two <strong>function</strong> calls trigger two separate side effects, and two <strong>Observable</strong> subscribes trigger two separate side effects.</p>
+            <p class="note">Subscribing to an Observable is analogous to calling a Function.</p>
+            <p class="note">Observables are able to deliver values either synchronously or asynchronously.</p>
+            <p>What is the difference between an <strong>Observable</strong> and a <strong>function</strong>?</p>
+            <p><strong>Observable</strong> can "return" multiple values over time, something which <strong>function</strong> cannot.</p>
+            <p>Function:</p>
+            <code-example code="
+            function foo() {
+              console.log('Hello');
+              return 42;
+              return 100; // dead code. will never happen
+            }
+            "></code-example>
+            <br>
+            <p><strong>Functions</strong> can only return one value. <strong>Observables</strong>, however, can do this:</p>
+            <code-example code="
+            import { Observable } from 'rxjs';
+ 
+            const foo = new Observable(subscriber => {
+              console.log('Hello');
+              subscriber.next(42);
+              subscriber.next(100); // 'return' another value
+              subscriber.next(200); // 'return' yet another
+            });
+             
+            console.log('before');
+            foo.subscribe(x => {
+              console.log(x);
+            });
+            console.log('after');
+            "></code-example>
+            <br>
+            <p>With <strong>synchronous</strong> output:</p>
+            <code-example code='
+            "before"
+            "Hello"
+            42
+            100
+            200
+            "after"
+            '></code-example>
+            <br>
+            <p>But you can also "return" values <strong>asynchronously</strong>:</p>
+            <code-example code="
+            import { Observable } from 'rxjs';
+ 
+            const foo = new Observable(subscriber => {
+              console.log('Hello');
+              subscriber.next(42);
+              subscriber.next(100);
+              subscriber.next(200);
+              setTimeout(() => {
+                subscriber.next(300); // happens asynchronously
+              }, 1000);
+            });
+             
+            console.log('before');
+            foo.subscribe(x => {
+              console.log(x);
+            });
+            console.log('after');
+            "></code-example>
+            <br>
+            <p><strong>Asynchronously</strong> Output:</p>
+            <code-example code='
+            "before"
+            "Hello"
+            42
+            100
+            200
+            "after"
+            300
+            '></code-example>
+            <br>
+            <p><strong>Conclusion:</strong></p>
+            <ul>
+              <li><code>func.call()</code> means "give me one value synchronously"</li>
+              <li><code>observable.subscribe()</code> means "give me any amount of values, either synchronously or asynchronously"</li>
+            </ul>
+          </ng-container>
+      </ng-container>
+    </mat-expansion-panel>
+</ng-template>
+
+<ng-template #anatomyTmplt>
+  <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Anatomy of an Observable
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <ng-container #content>
+          <ng-container #description>
+            <p>Observables are <strong>created</strong> using <code>new Observable</code> or a creation operator, are <strong>subscribed</strong> to with an Observer, <strong>execute</strong> to deliver <code>next / error / complete</code> notifications to the Observer, and their execution may be <strong>disposed</strong>. </p>
+            <p>Core Observable concerns:</p>
+            <ul>
+              <li>Creating</li>
+              <li>Subscribing</li>
+              <li>Executing</li>
+              <li>Disposing</li>
+            </ul>
+          </ng-container>
+
+          <ng-container #content1>
+            <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          Creating Observables
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <ng-container #description1>
+                      <p>The <strong>Observable</strong> constructor takes one argument: the subscribe function.</p>
+                      <p>Ex:</p>
+                      <code-example code="
+                      import { Observable } from 'rxjs';
+
+                      const observable = new Observable(function subscribe(subscriber) {
+                        const id = setInterval(() => {
+                          subscriber.next('hi')
+                        }, 1000);
+                      });
+                      "></code-example>
+                      <br>
+                      <p class="note">Observables can be created with new Observable. Most commonly, observables are created using creation functions, like of, from, interval, etc.</p>
+                    </ng-container>
+                </mat-expansion-panel>
+            </mat-accordion>
+          </ng-container>
+
+          <ng-container #content2>
+            <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          Subscribing to Observables
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <ng-container #description2>
+                      <p>The <strong>Observable</strong> observable in the example can be subscribed to, like this:</p>
+                      <code-example code="
+                      observable.subscribe(x => console.log(x));
+                      "></code-example>
+                      <br>
+                      <p>It is not a coincidence that <code>observable.subscribe</code> and subscribe in <code>new Observable(function subscribe(subscriber) {{'{...}'}})</code> have the same name. In the library, they are different, but for practical purposes you can consider them conceptually equal.</p>
+                      <p class="note">Subscribing to an Observable is like calling a function, providing callbacks where the data will be delivered to.</p>
+                      <p>A <strong>subscribe </strong>call is simply a way to start an "Observable execution" and deliver values or events to an Observer of that execution.</p>
+                    </ng-container>
+                </mat-expansion-panel>
+            </mat-accordion>
+          </ng-container>
+
+          <ng-container #content3>
+            <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          Executing Observables
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <ng-container #description3>
+                      <p>There are three types of values an Observable Execution can deliver:</p>
+                      <ul>
+                        <li><strong>Next</strong>: sends the actual value such as a Number, a String, an Object, etc</li>
+                        <li><strong>Error</strong>: sends a JavaScript Error or exception.</li>
+                        <li><strong>Complete</strong>: does not send a value and will stop observing.</li>
+                      </ul>
+                      <p>Complete ex:</p>
+                      <code-example code="
+                      import { Observable } from 'rxjs';
+
+                      const observable = new Observable(function subscribe(subscriber) {
+                        subscriber.next(1);
+                        subscriber.next(2);
+                        subscriber.next(3);
+                        subscriber.complete();
+                        subscriber.next(4); // Is not delivered because it would violate the contract
+                      });
+                      "></code-example>
+                      <br>
+                      <p>It is a good idea to wrap any code in <strong>subscribe</strong> with <strong>try/catch block</strong> that will deliver an Error notification if it catches an exception:</p>
+                      <code-example code="
+                      import { Observable } from 'rxjs';
+ 
+                      const observable = new Observable(function subscribe(subscriber) {
+                        try {
+                          subscriber.next(1);
+                          subscriber.next(2);
+                          subscriber.next(3);
+                          subscriber.complete();
+                        } catch (err) {
+                          subscriber.error(err); // delivers an error if it caught one
+                        }
+                      });
+
+                      "></code-example>
+                    </ng-container>
+                </mat-expansion-panel>
+            </mat-accordion>
+          </ng-container>
+
+          <ng-container #content4>
+            <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          Disposing Observable Executions
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <ng-container #description4>
+                      <p>Because Observable Executions may be infinite, and it's common for an Observer to want to abort execution in finite time to avoid wasting computation power or memory resources and for canceling API execution </p>
+                      <p>When <code>observable.subscribe</code> is called, the Observer gets attached to the newly created <strong>Observable</strong> execution. This call also returns an object, the <strong>Subscription</strong>:</p>
+                      <code-example code="
+                      const subscription = observable.subscribe(x => console.log(x));
+                      "></code-example>
+                      <br>
+                      <p>The <strong>Subscription</strong> represents the ongoing execution. With <code>subscription.unsubscribe()</code> you can cancel the ongoing execution:</p>
+                      <code-example code="
+                      import { from } from 'rxjs';
+
+                      const observable = from([10, 20, 30]);
+                      const subscription = observable.subscribe(x => console.log(x));
+                      // Later:
+                      subscription.unsubscribe();
+                      "></code-example>
+                      <p class="note">When you subscribe, you get back a Subscription, which represents the ongoing execution. Just call unsubscribe() to cancel the execution.</p>
+                    </ng-container>
+                </mat-expansion-panel>
+            </mat-accordion>
+          </ng-container>
+
+      </ng-container>
+    </mat-expansion-panel>
+</ng-template>
